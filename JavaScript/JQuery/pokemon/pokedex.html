@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Pokedex</title>
+    <script
+      src="http://code.jquery.com/jquery-3.3.1.js"
+      integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+      crossorigin="anonymous">
+    </script>
+    <style media="screen">
+      .card{
+        display: inline;
+      }
+      .card img:hover{
+        background: radial-gradient(red,red, orange, yellow ,transparent ,transparent,transparent);
+        position: relative;
+        top: -3px;
+        right: -3px;
+      }
+      .wrapper{
+        padding: 30px;
+      }
+      #pokedex{
+        width: 300px;
+        min-height: 500px;
+        border: 20px solid red;
+        border-radius: 10px;
+        border-bottom-right-radius: 50px;
+        border-top-left-radius: 50px;
+        float: right;
+        margin: 15px;
+        padding: 0 0 30px 0;
+        font-family: monospace;
+        box-shadow: 10px 10px 20px #999;
+      }
+      #pokedex h2{
+        display: block;
+        margin: 0 0 20px 0;
+        color: white;
+        background-color: red;
+        line-height: 2.5em;
+        font-size: 2.5em;
+        font-weight: normal;
+        text-align: center;
+      }
+      #pokedex h3, ul, span{
+        margin: 30px 0 0 30px;
+        font-size: 2em;
+      }
+      #pokedex img{
+        display: block;
+        margin: auto;
+      }
+    </style>
+    <script type="text/javascript">
+      $(document).ready(function(){
+
+      for (var x=1; x<=151; x++){ //151
+        var img_str = '<div class="card" id="' + x + '" >';
+        img_str+= '<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + x +'.png" alt="pokemon" ></div>';
+        $('#images').append(img_str);
+        }//end for loop (1-151)
+
+        $(".card").click(function(){
+          var toHTML = "";
+          var poke_url= 'https://pokeapi.co/api/v2/pokemon/'+ $(this).attr("id") +'/';
+          var img_url = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + $(this).attr("id") +".png";
+
+          $.get( poke_url, function(res) { //add stats for later display
+
+              toHTML+= '<h2>'+ res.name +'</h2><img src=\'' + img_url +'\' alt=\'pokemon\'><h3>Types</h3><ul>';
+
+              for(var i = 0; i < res.types.length; i++) {
+                toHTML += '<li>' + res.types[i].type.name + '</li>';
+              }//end for types <li>
+              toHTML+= '</ul><h3>Height</h3><span>' + res.height + '</span><h3>Weight</h3><span>' + res.weight + '</span></div>';
+
+              $("#pokedex").html(toHTML);
+          }, "json"); //end get
+
+        });
+
+      })
+    </script>
+  </head>
+  <body>
+    <div class="wrapper" id="images">
+      <div class="" id="pokedex">
+        <!-- <h2>Dummy</h2>
+        <h3>Types</h3>
+        <ul>
+          <li>death</li>
+        </ul>
+        <h3>Height</h3>
+        <span>10</span>
+        <h3>Weight</h3>
+        <span>12</span> -->
+      </div>
+
+
+
+      <!-- <div class="card" id="#">
+        ///////DEMO CARD
+        <img src="#" alt="#" stats="<h2>Name</h2><img src='#' alt='#'><h3>Types</h3><ul><li></li></ul><h3>Height</h3>Hnumber<h3>Weight</h3>Wnumber"> -->
+      <!-- </div> -->
+    </div>
+
+
+
+    <script type="text/javascript">
+
+      // document.getElementById("images").innerHTML = img_str;
+    </script>
+
+  </body>
+</html>

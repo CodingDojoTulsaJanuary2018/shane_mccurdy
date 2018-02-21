@@ -1,0 +1,134 @@
+body {
+
+  font-family: Arial, Helvetica, sans-serif;
+  /* font-kerning: normal; */
+
+}
+body *{
+  /* border: thin green solid; */
+  /* margin: 5px; */
+}
+.wrapper{
+  width: 970px;
+  background-color: #1d0d11;
+  background: radial-gradient(#6f5964, #1d0d11);
+  margin: auto;
+}
+
+header {
+  background-color: #eee;
+  color: black;
+  padding: 0 20px 0;
+}
+h1 {
+  display: inline;
+  line-height: 65px;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+.header-tag{
+  display: inline;
+  text-align: right;
+  float: right;
+  font-size: 1.3em;
+  font-weight: bold;
+  line-height: 60px;
+}
+.about{
+
+}
+.main-img{
+  width: 400px;
+  height: 265px;
+  border: solid silver 5px;
+  margin: 20px;
+
+}
+.about-me{
+  height: 275px;
+  width: 490px;
+  background: linear-gradient(to right, #fefefe , #dacbd9);
+  float: right;
+  margin: 20px 20px 20px 0;
+}
+.about-me p, .cards p{
+  padding: 10px;
+  text-align: left;
+  font-size: 0.9em;
+  font-weight: 200;
+  color: #333;
+}
+.about-me a{
+  color: #333;
+}
+.main{
+  /* padding: 25px; */
+}
+.banner {
+  height: 40px;
+  background: linear-gradient(#b1b1b5, #8c8a97, #b1b1b5);
+  color: white;
+  text-align: left;
+  line-height: 40px;
+  text-indent: 10px;
+  font-weight: 600;
+}
+.cards{
+  text-align: center;
+}
+.cards p {
+  text-align: justify;
+}
+.card{
+  display: inline-block;
+  width: 295px;
+  background-color: #eee;
+  margin: 0 10px 20px;
+  background: linear-gradient(to right, #fefefe , #dacbd9);
+}
+.card-img{
+  width: inherit;
+}
+.icons{
+  text-align: left;
+}
+.icon {
+  height: 40px;
+  width: 40px;
+  margin: 13px 0 0 13px;
+}
+.green-button {
+  display: inline-block;
+  margin: 10px auto 20px;
+  color: white;
+  background-color: #407d61;
+  border: thin black solid;
+  border-radius: 5px;
+  padding: 5px;
+  box-shadow: 5px 5px 5px #999;
+  text-decoration: none;
+  font-size: 0.8em;
+}
+footer {
+  background-color: #eee;
+  color: #333;
+  height: 65px;
+  margin-bottom: 30px;
+  text-align: center;
+  padding: 10px 0 0 0;
+}
+footer ul li{
+  display: inline;
+}
+footer ul {
+  margin: 5px;
+}
+footer a {
+  color: #333;
+  font-style: italic;
+}
+.tiny-icon{
+  width: 20px;
+  height: 20px;
+  position: relative;
+  top: 5px;
+}

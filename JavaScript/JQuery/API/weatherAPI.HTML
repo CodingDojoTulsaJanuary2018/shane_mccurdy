@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Weather API</title>
+    <script
+      src="http://code.jquery.com/jquery-3.3.1.js"
+      integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+      crossorigin="anonymous">
+    </script>
+    <script>
+    $(document).ready(function() {
+      $('form').submit(function() {
+        var key = "&units=imperial&&appid=55542229da06d2a5064eb3596874c2c3";
+        var search = $('#search').val();
+        var url = "http://api.openweathermap.org/data/2.5/weather?q=" + search + key;
+          // your code here (build up your url)
+        $.get(url, function(res) {
+          $('h1').html(res.name);
+          $('h2').html(res.main.temp);
+              // your code here
+        }, 'json');
+          // don't forget to return false so the page doesn't refresh
+        return false;
+      });
+    });
+
+
+    </script>
+    <style media="screen">
+      body{
+        background: linear-gradient(-90deg, #333,#666,#333);
+        font-family: helvetica;
+      }
+      form{
+        width: 200px;
+        display: block;
+        text-align: center;
+        margin: 200px auto;
+        border: thin solid #888;
+        background-color: #eee;
+        padding: 30px 50px;
+        border-radius: 10px;
+      }
+      h1{
+        font-size: 1.5em;
+      }
+    </style>
+  </head>
+  <body>
+
+    <form>
+      <h1>Weather for your location</h1>
+      <h2></h2>
+      <input id="search" type="text" name="search" value="Tulsa">
+      <button type="submit" name="button">Get weather!</button>
+    </form>
+
+  </body>
+</html>

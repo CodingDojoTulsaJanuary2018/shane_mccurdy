@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Students and Instructors</title>
+    <style media="screen">
+    body{
+      padding: 0;
+      margin: 0;
+      background-color: #efe;
+      line-height: 1.5em;
+      text-align: center;
+      font-family: monospace;
+      width: 100%;
+    }
+      h1{
+        margin: 0;
+        height: 2em;
+        line-height: 1.5em;
+        color: white;
+        background-color: darkslategrey;
+      }
+      h2{
+        margin: 0;
+        height: 2em;
+        line-height: 1.5em;
+        color: white;
+        background-color: #666;
+      }
+      .wrapper{
+        margin: 30px 40%;
+        width: 500px;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Students and Instructors</h1>
+    <h2>Printing Arrays of Objects</h2>
+    <div class="wrapper" id="wrapper">
+
+    </div>
+
+    <script type="text/javascript">
+
+    var students = [
+     {first_name:  'Michael', last_name : 'Jordan'},
+     {first_name : 'John', last_name : 'Rosales'},
+     {first_name : 'Mark', last_name : 'Guillen'},
+     {first_name : 'KB', last_name : 'Tonel'}
+    ]
+
+    function firstAndLastName(objArr){
+      var upload = "";
+      upload+= "<table>";
+      for (var obj in objArr) {
+        console.log(objArr[obj].first_name+" "+objArr[obj].last_name);
+        upload+=("<tr><td>"+objArr[obj].first_name+"</td><td>"+objArr[obj].last_name+"</td></tr>");
+      }
+      upload+= "</table>";
+      document.getElementById("wrapper").innerHTML += upload;
+    }
+
+    firstAndLastName(students);
+
+    var users = {
+     'Students': [
+         {first_name:  'Michael', last_name : 'Jordan'},
+         {first_name : 'John', last_name : 'Rosales'},
+         {first_name : 'Mark', last_name : 'Guillen'},
+         {first_name : 'KB', last_name : 'Tonel'}
+      ],
+     'Instructors': [
+         {first_name : 'Michael', last_name : 'Choi'},
+         {first_name : 'Martin', last_name : 'Puryear'}
+      ]
+     }
+
+     // function printPartII(objArrArr){
+     //   var upload = "";
+     //   upload+= "<table>";
+     //
+     //   for (var objArr in objArrArr){
+     //     var num = 1;
+     //     for (var obj in objArr) {
+     //
+     //       console.log(num);
+     //       // console.log((num) +" - "+ objArrArr[objArr[obj]].first_name.toUpperCase()+" "+ objArrArr[objArr[obj]].toUpperCase()+" - "+ (objArrArr[objArr[obj]].first_name.length + objArrArr[objArr[obj]].last_name.length) );
+     //       // upload+=("<tr><td>"+objArr[obj].first_name+"</td><td>"+objArr[obj].last_name+"</td></tr>");
+     //       num++;
+     //     }
+     //   }
+     //   upload+= "</table>";
+     //   document.getElementById("wrapper").innerHTML += upload;
+     // }
+     //
+     // printPartII(users);
+
+    </script>
+  </body>
+</html>

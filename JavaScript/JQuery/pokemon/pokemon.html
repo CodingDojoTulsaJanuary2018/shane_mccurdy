@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Pokemon</title>
+  </head>
+  <body>
+    <div class="wrapper" id="images"></div>
+    <script type="text/javascript">
+      var img_str ="";
+      for (var x=1; x<=151; x++){
+        img_str+= '<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'+x+'.png" alt="pokemon'+x+'">';
+      }
+
+      document.getElementById("images").innerHTML = img_str;
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Random Chance</title>
+    <style media="screen">
+    body{
+      padding: 0;
+      margin: 0;
+      background-color: #efe;
+      line-height: 1.5em;
+      text-align: center;
+      font-family: monospace;
+      width: 100%;
+    }
+      h1{
+        margin: 0;
+        height: 2em;
+        line-height: 1.5em;
+        color: white;
+        background-color: darkslategrey;
+      }
+      h2{
+        margin: 0;
+        height: 2em;
+        line-height: 1.5em;
+        color: white;
+        background-color: #666;
+      }
+      ul{
+        width: 50%;
+        font-size: 1.5em;
+        line-height: 1.5em;
+        color: #ff9d00;
+        list-style: none;
+        text-align: right;
+      }
+      .win{
+        color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Random Chance</h1>
+    <h2>Quarter Slots</h2>
+    <ul id="win_list">
+      <li>--- You have 100 quarters to start</li>
+    </ul>
+
+    <script type="text/javascript">
+    function return1_100(){
+      return Math.floor(Math.random() * 100) + 1;
+    }
+    function return50_100(){
+      return Math.floor(Math.random() * 50) + 50;
+    }
+
+    function playGame(){
+      var quarters = 100;
+      var pot = 0;
+      while (quarters){
+        if (return1_100() == return1_100()){
+          pot = return50_100();
+          quarters += pot;
+          document.getElementById("win_list").innerHTML += "<li class='win'>You won "+ pot +" more quarters!</li>"
+          document.getElementById("win_list").innerHTML += "<li>"+ quarters +" quarters</li>"
+        }else {
+          quarters--;
+          document.getElementById("win_list").innerHTML += "<li>"+ quarters +" quarters</li>"
+        }
+      }
+      document.getElementById("win_list").innerHTML += "<li>Sorry, you ran out of quarters</li>"
+    }
+    playGame();
+    </script>
+  </body>
+</html>

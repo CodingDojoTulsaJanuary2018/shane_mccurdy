@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Fancy Array</title>
+    <style media="screen">
+    body{
+      padding: 0;
+      margin: 0;
+      background-color: #efe;
+    }
+      h1{
+        margin: 0;
+        height: 2em;
+        line-height: 1.5em;
+        text-align: center;
+        font-family: monospace;
+        width: 100%;
+        color: white;
+        background-color: darkslategrey;
+      }
+      h2{
+        margin: 0;
+        height: 2em;
+        line-height: 1.5em;
+        text-align: center;
+        font-family: monospace;
+        width: 100%;
+        color: white;
+        background-color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Fancy Array</h1>
+    <h2></h2>
+
+    <script type="text/javascript">
+    var arr = [ "James", "Jill", "Jane", "Jack" ];
+
+    function fancyArr(symbol="->", reverse=false){
+
+      if (reverse == true){
+        for (var x = arr.length-1; x >= 0; x--){
+            console.log(x +" "+ symbol +" "+ arr[x]);
+        }
+      } else {
+        for (var x = 0; x < arr.length; x++){
+            console.log(x +" "+ symbol +" "+ arr[x]);
+        }
+      }
+    }//end fancyArr
+
+    fancyArr();
+    fancyArr("<><><>");
+    fancyArr("-=-", true);
+    </script>
+  </body>
+</html>

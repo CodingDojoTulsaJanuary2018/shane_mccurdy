@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Dojos / New</title>
+    <style media="screen">
+      *{
+        text-align: center;
+        font-family: monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Submitted Form Page</h1>
+    <h2>This is the one with the POST-ed Form info</h2>
+    <br>
+    <hr>
+    <h3>{{ session['fn'] }}</h3>
+    <h3>{{ session['ln'] }}</h3>
+    <h3>{{ session['lc'] }}</h3>
+    <h3>{{ session['la'] }}</h3>
+    <h3>{{ session['cm'] }}</h3>
+    <br>
+    <a href="/ninjas">NINJAS!</a>
+    <a href="/">LANDING PAGE</a>
+    <a href="/dojos/new">BACK TO FORM</a>
+  </body>
+</html>

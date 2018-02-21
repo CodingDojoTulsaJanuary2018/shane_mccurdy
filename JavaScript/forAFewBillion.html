@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>For A Few Billion</title>
+    <style media="screen">
+    body{
+      padding: 0;
+      margin: 0;
+      background-color: #efe;
+    }
+      h1{
+        margin: 0;
+        height: 2em;
+        line-height: 1.5em;
+        text-align: center;
+        font-family: monospace;
+        width: 100%;
+        color: white;
+        background-color: darkslategrey;
+      }
+      h2{
+        margin: 0;
+        height: 2em;
+        line-height: 1.5em;
+        text-align: center;
+        font-family: monospace;
+        width: 100%;
+        color: white;
+        background-color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>For A Few Billion</h1>
+    <h2 id="h2">$</h2>
+
+    <script type="text/javascript">
+      var penny = .01;
+
+      for (var x = 0; penny < Infinity; x++){
+        console.log("At "+ x +"days : $"+ penny);
+        penny = penny*2;
+      }
+
+      document.getElementById('h2').innerHTML += " "+penny.toString();
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,123 @@
+
+                      --MODELS CHEATSHEET--
+
+            DON'T FORGRT TO...
+      > python manage.py makemigrations
+      > python manage.py migrate
+
+            GET TO TERMINAL SHELL...
+      > pyton manage.py shell
+      >>> exit()      (to quit)
+      for all of the apps DB models use *, but this is overkill in large system
+      >>> from apps.{{app_name}}.models import *
+
+===================================================================
+
+class <**Name**>(models.Model):
+  # id is auto-generated
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
+  name = models.CharField(max_length=255)
+  email = models.CharField(max_length=255)
+  first_name = models.CharField(max_length=255)
+  last_name = models.CharField(max_length=255)
+  age = models.IntegerFeild()
+  title = models.CharField(max_length=255)
+  desc = models.TextField()
+  desc = models.TextField(default="")
+	books = models.ManyToManyField(Book, related_name="publishers")
+  authors = models.ManyToManyField(Author, related_name="Book")
+  blog = models.ForeignKey(<Other_table>, related_name = "<**Name**>")
+
+++++++++ EXAMPLE CODE DUMP +++++++
+
+  from __future__ import unicode_literals
+  from django.db import models
+
+  # Create your models here.
+
+  class Blog(models.Model):
+      name = models.CharField(max_length=255)
+      desc = models.TextField()
+      created_at = models.DateTimeField(auto_now_add = True)
+      updated_at = models.DateTimeField(auto_now = True)
+  class Comment(models.Model):
+      comment = models.CharField(max_length=255)
+      created_at = models.DateTimeField(auto_now_add = True)
+      updated_at = models.DateTimeField(auto_now = True)
+      # Notice the association made with ForeignKey for a one-to-many relationship
+      # There can be many comments to one blog
+      blog = models.ForeignKey(Blog, related_name = "comments")
+  class Admin(models.Model):
+      first_name = models.CharField(max_length=255)
+      last_name = models.CharField(max_length=255)
+      email = models.CharField(max_length=255)
+      blogs = models.ManyToManyField(Blog, related_name = "admins")
+      created_at = models.DateTimeField(auto_now_add = True)
+      updated_at = models.DateTimeField(auto_now = True)
+
+++++++++++++++++++++++
+
+Adding a relationship between two existing records is simple:
+
+> this_book = Book.objects.get(id=4)
+> this_publisher = Publisher.objects.get(id=2)
+> this_publisher.books.add(this_book)
+
+The syntax to see all books from a given publisher is the same as
+when doing a reverse look-up on a ForeignKey relationship:
+>  this_publisher.books.all()
+in your views.py, or...
+  {% this_publisher.books.all %}
+in a template.
+
+ManyToManyFields are automatically symmetrical. That is, by adding
+a book to a publisher, Django will also automatically add the
+publisher to the book. This means that we can add or look up from
+the other end without issue, assuming we've specified a related
+name so that Django knows how to refer to the field in the other
+model.
+>  this_book.publishers.add(this_publisher)
+is the same as...
+>  this_publisher.books.add(this_book)
+and..
+>  this_book.publishers.all()
+will return all publishers of a given book.
+
+To delete a many to many that was added...
+>  this_publisher.books.remove(this_book)
+
+
+Creating a new record
+  Blog.objects.create({{field1}}="{{value}}", {{field2}}="{{value}}", etc) # creates a new record in the Blog table
+  Blog.objects.create(name="Star Wars Blog", desc="Everything about Star Wars") # creates a new blog record
+  Blog.objects.create(name="CodingDojo Blog") # creates a new blog record with the empty desc field
+Alternative way of creating a record
+  b = Blog(name="Disney Blog", desc="Disney stuff")
+  b.name = "Disney Blog!"
+  b.desc = "Disney stuff!!!"
+  b.save()
+Basic Retrieval
+  Blog.objects.first() - retrieves the first record in the Blog table
+  Blog.objects.last() - retrieves the last record in the Blog table
+  Blog.objects.all() - retrieves all records in the Blog table
+  Blog.objects.count() - shows how many records are in the Blog table
+Updating the record - once you obtain an object that has the record you want to modify, use save() to update the record.  For example
+  b = Blog.objects.first() # gets the first record in the blogs table
+  b.name = "CodingDojo Blog"  # set name to be "CodingDojo Blog"
+  b.save() # updates the blog record
+Deleting the record - use delete().  For example
+  b = Blog.objects.get(id=1)
+  b.delete() # deletes that particular record
+Other methods to retrieve records
+  Blog.objects.get(id=1) - retrieves where id is 1; get only retrieves 1 record
+  Blog.objects.filter(name="mike") - retrieves records where name is "mike"; returns multiple records
+  Blog.objects.exclude(name="mike") - opposite of filter; returns multiple records
+  Blog.objects.order_by("created_at") - orders by created_date field
+  Blog.objects.order_by("-created_at") - reverses the order
+  Blog.objects.raw("SELECT * FROM {{app_name}}_{{class/table name}}") - performs a raw SQL query
+  Blog.objects.first().comments.all() - grabs all comments from the first Blog
+  Blog.objects.get(id=15).comments.first() - grabs the first comment from Blog id = 15
+  Comment.objects.get(id=15).blog.name - returns the name of the blog where Comment id = 15 belongs to
+Setting Relationship
+  Comment.objects.create(blog=Blog.objects.get(id=1), comment="test") - create a new comment where the comment's blog points to Blog.objects.get(id=1).

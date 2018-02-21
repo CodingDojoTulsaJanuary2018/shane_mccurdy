@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>JQuery</title>
+    <script
+      src="http://code.jquery.com/jquery-3.3.1.js"
+      integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+      crossorigin="anonymous">
+    </script>
+    <style media="screen">
+    body{
+      margin: 0;
+      font-family: monospace;
+    }
+      .linethrough{
+        text-decoration: line-through;
+      }
+      #slideIn{
+        background-color: red;
+        font-size: 2.5em;
+        color: white;
+        line-height: 2.5em;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 5px 5px 30px #ccc;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+      }
+
+      #bigYellow{
+        margin: 50px auto;
+        background-color: yellow;
+        width: 700px;
+        height: 200px;
+        text-align: center;
+        padding: 130px 0 0 0 ;
+      }
+      #ghost{
+        position: fixed;
+        left: 15%;
+        width: 70%;
+        top: 5%;
+        z-index: 2;
+      }
+      button{
+        font-size: 2em;
+        padding: 10px 15px;
+        border: none;
+        background-color: orange;
+        font-family: monospace;
+      }
+      .wrapper{
+        margin: 250px auto;
+        width: 900px;
+        text-align: center;
+      }
+    </style>
+    <script type="text/javascript">
+      $(document).ready(function(){
+
+        $(document).click(function(){
+          var flip = true;
+          function flashBanner() { //toggles the banner colors to give flashing effect
+            if (flip) {
+              $("#slideIn").css( {"background-color":"white","color":"red"});
+              flip = false;
+            } else {
+              $("#slideIn").css( {"background-color":"red","color":"white"});
+              flip = true;
+            }
+            setTimeout(flashBanner, 500);
+          }
+          flashBanner();
+
+          function dropBanner(){
+            $("#slideIn").slideDown(2000); //hidden in the opening tag -- animation speed propreties, and can call another function when done
+          }
+
+          setTimeout(dropBanner, 2000); //makes the banner wait to drop down
+        })
+
+        $("#clickMe").click(function(){
+          $("#bigYellow").append($("h1")); // grabs the whole element and moves it -- not copying it, but actually moving it
+        })
+
+        $("#boo").click(function(){ //no animation -- whatsoever
+          $("#ghost").show(); //hidden in the opening tag
+        })
+
+
+      })
+    </script>
+  </head>
+  <body>
+
+    <div id="slideIn" hidden> <!-- hidden attribute -->
+      WARNING: WE DETECTED A VIRUS ON YOUR DEVEICE!!! <br> CLICK HERE TO DOWNLOAD OUR FREE <span class="linethrough">TROJAN HORSE</span> VIRUS PROTECTION!!!
+    </div>
+    <!-- ++++++++++++++++++++++++++++++ -->
+    <div class="wrapper">
+      <h1>Hello World</h1>
+      <button type="button" id="clickMe" name="button">Click Me!</button>
+
+      <div id="bigYellow"></div>
+
+      <button type="button" id="boo" name="button">Don't click me!</button>
+      <img id="ghost" src="http://dkcoin8.com/images/scary-boo-clipart-5.gif" alt="Boo!" hidden> <!-- hidden attribute -->
+
+    </div>
+  </body>
+</html>

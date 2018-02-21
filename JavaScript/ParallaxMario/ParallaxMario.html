@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Parallax Mario</title>
+  </head>
+  <style media="screen">
+  #game_container{
+    background: linear-gradient(to bottom, orange, pink,pink);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1500px;
+    height: 890px;
+    overflow: hidden;
+    border: 20px red solid;
+  }
+  #back0{
+    background-image: url("mountains-back.png");
+    height: 894px;
+    width: 2000px;
+    position: absolute;
+    top: 0;
+  }
+  #back1{
+    background-image: url("mountains-mid1.png");
+    height: 770px;
+    width: 2000px;
+    position: absolute;
+    top: 124px;
+  }
+  #back2{
+    background-image: url("mountains-mid2.png");
+    height: 482px;
+    width: 2000px;
+    position: absolute;
+    top: 412px;
+  }
+  #back3{
+    background-image: url("grass.png");
+    height: 259px;
+    width: 2000px;
+    position: absolute;
+    top: 635px;
+  }
+  #mario{
+    background-image: url("mario_flat.png");
+    height: 256px;
+    width: 256px;
+    position: absolute;
+    top: 625px;
+    /* left: 500px; */
+  }
+  .coin{
+    position: absolute;
+    /* top: 620px; */
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-image: url("coin.gif");
+  }
+  </style>
+
+  <body>
+    <div id="game_container">
+      <div id="background_container">
+        <!-- <div id="back0"></div>
+        <div id="back1"></div>
+        <div id="back2"></div>
+        <div id="back3"></div> -->
+      </div><!--end backgroung_container -->
+
+      <div id="coins">
+        <!-- <div id="coin"></div> -->
+      </div>
+      <div id="mario_container"></div>
+    </div><!--end game_container -->
+  </body>
+  <script type="text/javascript">
+
+  var coin_bling = document.createElement("audio");
+  coin_bling.src = "Mario-coin-sound.mp3";
+
+
+  var backimgs =[
+    {top:0, left: 0},
+    {top:124, left: 0},
+    {top:412, left: 0},
+    {top:635, left: -5}
+  ]
+  var coins = [
+    {left:275,top: 620},
+    {left:375,top: 620},
+    {left:475,top: 620},
+    {left:575,top: 620},
+    {left:800,top: 820},
+    {left:920,top: 820},
+    {left:1040,top: 820},
+    {left:1160,top: 820},
+    {left:1280,top: 820},
+    {left:1400,top: 820}
+  ]
+  var mario = {
+    left:200
+  }
+  var jumping = false;
+
+    function drawWorld(){
+        var update = "";
+        for (var img = 0; img<4; img++){
+          update+= '<div id="back'+img +'" style="top: '+ backimgs[img].top +'px; left: '+ backimgs[img].left +'px;"></div>';
+        }
+        document.getElementById('background_container').innerHTML = update;
+    }
+    function drawCoins(){
+      var cn = "";
+      for ( var i = 0; i< coins.length; i++){
+        cn+= '<div class="coin" style="left:'+ coins[i].left +'px; top:'+ coins[i].top +'px"></div>';
+      }
+      document.getElementById("coins").innerHTML = cn;
+    }
+    var parallaxUDAmount = 1;
+    var parallaxLRAmount = 1;
+
+
+    function worldUp(){
+      for (var x = 0; x<=3; x++){
+        backimgs[x].top-= (x*parallaxUDAmount);
+        setTimeout(drawWorld, 150);
+      }
+    }
+    function worldDown(){
+      for (var x = 0; x<=3; x++){
+        backimgs[x].top+= (x*parallaxUDAmount);
+        setTimeout(drawWorld, 150);
+      }
+    }
+    function worldRight(){
+      if(backimgs[3].left > -500){
+        for (var x = 0; x<=3; x++){
+          backimgs[x].left-= (x*parallaxLRAmount);
+          setTimeout(drawWorld, 150);
+        }
+      }
+    }
+    function worldLeft(){
+      if(backimgs[3].left < 0){
+        for (var x = 0; x<=3; x++){
+          backimgs[x].left+= (x*parallaxLRAmount);
+          setTimeout(drawWorld, 150);
+        }
+      }
+    }
+
+    function flat_mario(){
+      document.getElementById("mario").style.backgroundImage = "url('mario_flat.png')";
+      jumping = false;
+    }
+    function jumping_mario() {
+      document.getElementById("mario").style.backgroundImage = "url('mario_jump.gif')";
+    }
+    function drawMario(){
+      document.getElementById("mario_container").innerHTML = '<div id="mario" style="left: '+ mario.left +'px"></div>'
+    }
+    function checkCoin() {
+      for( var c = 0; c < coins.length; c++){
+        if(coins[c].left-72 >= mario.left-10 && coins[c].left-72 <= mario.left+10 ){
+          if(jumping && coins[c].top < 621){
+            coins.splice(c,1);
+            // console.log("coin!");
+            coin_bling.play();
+            setTimeout(drawCoins, 300);
+          }else if (!jumping && coins[c].top > 621) {
+            coins.splice(c,1);
+            // console.log("coin!");
+            coin_bling.play();
+            setTimeout(drawCoins, 300);
+          }
+        }
+      }
+    }
+
+    function jump(){
+      checkCoin();
+      jumping_mario();
+      worldDown();
+      setTimeout(worldUp, 450);
+      setTimeout(flat_mario, 600);
+    }
+    function moveRight() {
+      if (mario.left < 1355){
+        mario.left+=10;
+        checkCoin();
+        drawMario();
+        worldRight();
+      }
+    }
+    function moveLeft() {
+      if (mario.left > 4){
+        mario.left-=10;
+        checkCoin();
+        drawMario();
+        worldLeft();
+      }
+    }
+    document.onkeydown = function(e){
+      // console.log(e.keyCode);
+      if (e.keyCode == 32 && (!jumping)){
+        jumping = true;
+        jump();
+      }
+      else if (e.keyCode == 39) {
+        moveRight();
+      }
+      else if (e.keyCode == 37) {
+        moveLeft();
+      }
+    };
+
+      drawWorld();
+      drawMario();
+      drawCoins();
+      function gameloop(){
+        jump();
+        setTimeout(gameloop, 600)
+      }
+    // gameloop();
+  </script>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Shift</title>
+    <script type="text/javascript">
+      var myArr = [1,2,3,4];
+
+      function shifty(arr) {
+          for (var i = 0; i < arr.length-1; i++) {
+            arr[i] = arr[i+1];
+          }
+          arr[i] = 0;
+      }
+      shifty(myArr);
+      console.log(myArr);
+
+      var zero = [0];
+      console.log(zero[0]/zero[0]);
+    </script>
+  </head>
+  <body>
+    <h1 id="h1"></h1>
+    <script type="text/javascript">
+        document.getElementById("h1").innerHTML = (zero[0]/zero[0]);
+    </script>
+  </body>
+</html>

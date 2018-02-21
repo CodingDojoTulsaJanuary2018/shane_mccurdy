@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Great NUmber Game</title>
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css.css') }}"> -->
+    <style media="screen">
+    body{
+      text-align: center;
+      font-family: verdana;
+    }
+    .red{
+      background-color: red;
+    }
+    .green{
+      background-color: green;
+    }
+    .feedback_wrapper{
+      width: 350px;
+      height: 250px;
+      margin: 30px auto;
+      padding: 30px 0;
+      color: white;
+      border:thin solid black;
+    }
+    .too{
+      margin: 100px auto;
+    }
+    .won{
+      margin: 100px auto;
+    }
+    </style>
+  </head>
+  <body>
+    <h1>Welcome to the Great Number Game</h1>
+    <h2>I am thinking of a number between 1 and 100</h2>
+    <h2>Take a guess!</h2>
+    <!-- <h3>{{session['guessMe']}}</h3> -->
+    {%if session['feedback']: %}
+    <div class="feedback_wrapper {{session['feedback_class']}}">
+      <h2 class="{{session['feedback_LHW']}}">{{session['feedback']}}</h2>
+      {%if session['won'] == "True": %}
+      <form class="" action="/reset" method="post">
+        <button type="submit" name="button">Reset</button>
+      </form>
+      {%endif%}
+    </div>
+    {%endif%}
+    {% if session['won'] == "False": %}
+    <form class="" action="/guess" method="post">
+      <input type="number" name="guess"  min="1" max="100" value="" required>
+      <button type="submit" name="button">GUESS!</button>
+    </form>
+    {%endif%}
+  </body>
+</html>

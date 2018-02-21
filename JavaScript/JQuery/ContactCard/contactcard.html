@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <script
+      src="http://code.jquery.com/jquery-3.3.1.js"
+      integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+      crossorigin="anonymous">
+    </script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0-beta.3/united/bootstrap.min.css" rel="stylesheet" integrity="sha384-oh6CIJjWhRwp0mieUS356ygt51KjDbBegXk3ExmLxlQPRno1G/QOtiK55uCVuGs3" crossorigin="anonymous">
+    <title>Users</title>
+    <!-- <style media="screen">
+    body{
+      /* background: linear-gradient(to right, indigo, purple, indigo); */
+      font-family: helvetica;
+    }
+      .wrapper{
+        width: 500px;
+        margin: 50px;
+        border: solid 5px #222;
+        border-radius: 20px;
+        background-color: #fcf;
+        text-align: center;
+        display: inline-block;
+      }
+      form input, form textarea{
+        display: block;
+        border-color: #333;
+        border-width: 3px;
+        margin: 0 auto 8px;
+      }
+      button{
+        margin: 30px;
+        border: none;
+        background-color: indigo;
+        color: white;
+        font-size: 1.2em;
+        padding: 10px 30px;
+        border-radius: 10px;
+      }
+      button:hover{
+        background-color: purple;
+      }
+      .cards{
+        display: inline-block;
+        vertical-align: top;
+      }
+      .card{
+
+        margin: 50px;
+        min-width: 500px;
+        border: solid 5px #222;
+        border-radius: 20px;
+      }
+      .card_front{
+        min-width: 440px;
+        color: indigo;
+        padding: 0 30px;
+
+      }
+      .card_back{
+        min-width: 440px;
+        background-color: indigo;
+        color: white;
+        padding: 0 30px;
+      }
+      pre{
+        margin: 0;
+        line-height: 70px;
+        font-size: 1.2em;
+      }
+    </style> -->
+    <script>
+        $(document).ready(function(){
+          $('button').click(function(){
+            $('.cards').append('<div class="card"><div class="card_front p-3 bg-info text-white"><h2>'+ $('#fname').val() + ' ' + $('#lname').val() +'</h2></div>'+
+            '<div class="card_back p-3 bg-dark text-white" style="display: none;" ><pre class="text-white">'+ $('#tarea').val() +'</pre></div>');
+          });
+          $(".card_back").hide();
+        });
+        $(document).on("click",".card_front", function(){
+          $(this).slideToggle();
+          $(this).siblings().slideToggle();
+        });
+        $(document).on("click",".card_back", function(){
+          $(this).slideToggle();
+          $(this).siblings().slideToggle();
+        });
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="bg-primary text-white p-3">Add Users To The Table</h1>
+      <div class="row justify-content-around">
+
+        <div class="col-5">
+          <form class="p-3">
+            First Name <input class="form-control" type="text" id="fname" name="fname" value="Dummy">
+            Last Name <input class="form-control" type="text" id="lname" name="lname" value="Dummy">
+            Description <textarea class="form-control" id="tarea" name="tarea" rows="8" cols="50">Description here...</textarea>
+          </form>
+          <button type="submit" class="btn btn-outline-primary" name="button">Add User</button>
+        </div><!-- col-5 -->
+
+        <div class="cards col-5">
+          <!-- <div class="cards form-group container"> -->
+            <div class="card">
+              <div class="card_front p-3 bg-info text-white" >
+                <h2>Dummy Dummy</h2>
+              </div>
+              <div class="card_back p-3 bg-dark text-white" style="display: none;" >
+                <pre class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit...</pre>
+              </div>
+            </div>
+          </div> <!-- cards -->
+        </div> <!-- col-5 -->
+      </div> <!-- justify -->
+    </div> <!-- Container -->
+      <!-- <h1>Add Users To The Table</h1> -->
+
+      <!-- <form class="col-lg-4">
+        First Name <input class="form-control" type="text" id="fname" name="fname" value="Dummy">
+        Last Name <input class="form-control" type="text" id="lname" name="lname" value="Dummy">
+        Description <textarea class="form-control" id="tarea" name="tarea" rows="8" cols="50">Description here...</textarea>
+      </form> -->
+      <!-- <button type="submit" name="button">Add User</button> -->
+    <!-- </div> -->
+    <!-- <div class="cards form-group container">
+      <div class="card">
+        <div class="card_front" >
+          <h2>Dummy Dummy</h2>
+        </div>
+        <div class="card_back" hidden>
+          <pre>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</pre>
+        </div> -->
+
+
+  </body>
+</html>

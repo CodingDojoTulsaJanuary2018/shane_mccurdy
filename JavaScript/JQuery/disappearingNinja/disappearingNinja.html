@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Disappearing Ninja</title>
+    <script
+      src="http://code.jquery.com/jquery-3.3.1.js"
+      integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+      crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/8bit-wonder" type="text/css"/>
+    <style media="screen">
+      body{
+        background-color: #040205;
+      }
+      .wrapper{
+        width: 970px;
+        margin: auto;
+        display: block;
+      }
+      header{
+        text-align: center;
+      }
+      header img{
+        margin: -20px auto 20px;
+        height: 250px;
+        display: inline-block;
+      }
+      #image_container{
+        width: 90%;
+        text-align: center;
+        margin: 20px auto;
+      }
+      #image_container img{
+        height: 200px;
+      }
+      #restore{
+        color: white;
+        background-color: #0c15b5;
+        font-size: 2em;
+        line-height: 1.5em;
+        font-family: '8BITWONDERNominal', sans-serif;
+        font-weight: 600;
+        border: black thick dotted;
+        padding: 20px 30px 30px 35px;
+        margin: 100px auto;
+        text-align: center;
+        display: block;
+      }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+          $("#image_container img").click(function(){
+            $(this).fadeOut(1600);
+          })
+
+          $( "#restore" ).click(function() {
+          $("#image_container img").fadeIn(800);
+          });
+        });
+    </script>
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <header>
+        <img src="img/TMNT.png" alt="TMNT">
+      </header>
+      <div id="image_container">
+        <img src="img/1.png" alt="ninja">
+        <img src="img/2.png" alt="ninja">
+        <img src="img/3.png" alt="ninja">
+        <img src="img/4.png" alt="ninja">
+        <img src="img/5.png" alt="ninja">
+        <img src="img/6.png" alt="ninja">
+        <img src="img/7.png" alt="ninja">
+        <img src="img/8.png" alt="ninja">
+        <img src="img/9.png" alt="ninja">
+        <img src="img/10.png" alt="ninja">
+        <img src="img/11.png" alt="ninja">
+      </div>
+
+      <button id="restore" type="button" name="restore">RESTORE</button>
+
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Survey Form</title>
+    <style media="screen">
+      .wrapper{
+        width: 510px;
+        margin: 75px auto;
+        border: 2px solid #000;
+        color: #333;
+        font-family: verdana;
+        padding: 20px;
+        box-shadow: 8px 10px 25px #999;
+      }
+      td input, td select, td textarea{
+        width: 100%;
+        line-height: 1em;
+        font-size: 1em;
+        border: 2px solid #000;
+      }
+      tr{
+        line-height: 2em;
+      }
+      button{
+        background-color: #0093ff;
+        color: white;
+        border: 2px solid #000;
+        box-shadow: 3px 3px 0 #333;
+        padding: 5px 20px;
+        font-size: 1em;
+      }
+      button:hover{
+        background-color: #4db4ff;
+      }
+      .right{
+        text-align: right;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <form class="survey" action="/surveys/process" method="post">
+        {% csrf_token %}
+        <table>
+          <tr>
+            <td>Your Name:</td><td><input type="text" name="name" value=""></td>
+          </tr>
+          <tr>
+            <td>Dojo Location:</td>
+            <td>
+              <select class="" name="dojo_location">
+                <option value="Tulsa" selected>Tulsa</option>
+                <option value="Mountain View">Mountain View</option>
+                <option value="Seatle">Seatle</option>
+                <option value="Dallas">Dallas</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Favorite Language:</td>
+            <td>
+              <select class="" name="fav_lang">
+                <option value="Javascript" selected>JavaScript</option>
+                <option value="Python">Python</option>
+                <option value="HTML-CSS">HTML/CSS</option>
+                <option value="Merican!">'Merican!</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              Comment (optional):
+              <br>
+              <textarea name="comment" rows="8" cols="80"></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td class="right" colspan="2">
+              <button type="submit" name="button" value="">Submit</button>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Registraton Form</title>
+    <style media="screen">
+      body{
+        margin: 0;
+        font-family: verdana;
+        text-align: center;
+      }
+      form{
+        width: 500px;
+        margin: auto;
+        text-align: right;
+        padding: 20px;
+        border: thick solid #999;
+      }
+      input{
+        line-height:1.2em;
+        font-size: 1.2em;
+        width: 340px;
+      }
+      button{
+        margin: 20px 20px 0;
+        padding: 10px 15px;
+        background-color: #ccc;
+        font-size: 1em;
+      }
+      button:hover{
+        background-color: #999;
+      }
+      .feedback{
+        margin: 20px auto;
+        color: red;
+      }
+      header{
+        background-color: #333;
+        color: white;
+        height: 40px;
+      }
+      ul{
+        list-style: none;
+        text-align: right;
+        display: inline-block;
+        position: absolute;
+        right: 0;
+        margin: 0px;
+      }
+      li{
+        display: inline-block;
+        padding: 0 20px;
+      }
+      li:hover{
+        background-color: #666;
+      }
+      li a{
+        text-decoration: none;
+        font-size: 20px;
+        line-height: 40px;
+        color: white;
+      }
+      .username{
+        font-size: 20px;
+        line-height: 40px;
+        color: white;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <header>
+      {%if session['logged_in'] %}
+      <div class="username">{{session['auth_user_first_name']}}, you are already signed in</div>
+      {%endif%}
+      <ul>
+        <li><a href="/"> &lt GO BACK</a></li>
+        {% if session['logged_in'] == 1 %}
+        <li><a href="/logout">LOGOUT</a></li>
+        {%endif%}
+      </ul>
+
+    </header> -->
+    <h1>LOGIN</h1>
+    <form class="" action="/verify_login" method="post">
+      Email <input type="email" name="li_email" value="{{session['li_email']}}"><br>
+      Password <input type="password" name="li_pwd" value="{{session['li_pwd']}}"><br>
+      <button type="submit" name="button">LOGIN</button>
+    </form>
+
+    <br><br>
+
+    <h2>Not a user? Get signed up here...</h2>
+    <form class="" action="/user_registration" method="post">
+      Email <input type="email" name="email" value="{{session['email']}}"><br>
+      First Name <input type="text" name="first_name" value="{{session['first_name']}}"><br>
+      Last Name <input type="text" name="last_name" value="{{session['last_name']}}"><br>
+      Password <input type="password" name="pwd" value="{{session['pwd']}}"><br>
+      Confirm Password <input type="password" name="pwdc" value="{{session['pwdc']}}">
+      <button type="submit" name="button">SIGN UP</button>
+    </form>
+    <div class="feedback">
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <p>{{message|safe}}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    </div>
+  </body>
+</html>

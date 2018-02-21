@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>If You Don't Mind, Can I Have The Time?</title>
+    <style media="screen">
+    body{
+      padding: 0;
+      margin: 0;
+      background-color: #efe;
+    }
+      h1{
+        margin: 0;
+        height: 2em;
+        line-height: 1.5em;
+        text-align: center;
+        font-family: monospace;
+        width: 100%;
+        color: white;
+        background-color: darkslategrey;
+      }
+      h2{
+        margin: 0;
+        height: 2em;
+        line-height: 1.5em;
+        text-align: center;
+        font-family: monospace;
+        width: 100%;
+        color: white;
+        background-color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>If You Don't Mind, Can I Have The Time?</h1>
+    <h2 id="timeHere">Time O, Clock</h2>
+
+    <script type="text/javascript">
+      var Hour = 7, Minute = 35, Period = "s";
+
+      function time(){
+        var hour = Hour, min = Minute, period = Period;
+
+        if (min == 0) {
+          min = "o'clock";
+        }else if (min <15) {
+          min = "just after";
+        }else if (min == 15) {
+          min = "quarter after";
+        }else if (min >15 && min <30) {
+          min = "almost half past";
+        }else if (min == 30) {
+          min = "half past";
+        }else if (min >30 && min <45) {
+          min = "almost a quarter 'til";
+          hour++;
+        }else if (min == 45) {
+          min = "quarter 'til";
+          hour++;
+        }else if (min >45 && min <60) {
+          min = "almost";
+          hour++;
+        }else {
+          min = "learn to tell";
+          hour = "time o'clock"
+        }
+
+        switch (period) {
+          case "AM":
+          case "am":
+            period = "in the morning"
+            break;
+          case "PM":
+          case "PM":
+            period = "on the afternoon"
+          default:
+            period = "...yuh dingus!"
+        }
+        var blurb = "It's "+ min +" "+ hour +" "+period;
+        console.log(blurb);
+        document.getElementById("timeHere").innerHTML = blurb;
+      }
+      time();
+
+    </script>
+  </body>
+</html>

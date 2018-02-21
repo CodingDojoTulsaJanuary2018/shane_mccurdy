@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Counter</title>
+  </head>
+  <body>
+    <h1>Counter</h1>
+    {% if the_count %}
+    <h2>{{ the_count }}</h2>
+    {% else %}
+    <h2>0</h2>
+    {%endif%}
+    <form class="" action="/posted" method="post">
+      <button type="submit" name="button"> +2 </button>
+    </form>
+    <form class="" action="/reset" method="post">
+      <button type="submit" name="button"> RESET </button>
+    </form>
+
+  </body>
+</html>

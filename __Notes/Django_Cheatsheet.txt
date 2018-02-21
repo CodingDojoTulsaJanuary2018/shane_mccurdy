@@ -1,0 +1,102 @@
+--SETTING UP A VIRTUAL ENVIRONMENT--
+
+> virtualenv djangoEnv
+> source djangoEnv/bin/activate
+
+(djangoEnv)>pip install Django==1.10
+
+--BUILDING A DJANGO PROJECT--
+
+> django-admin startproject Main_Project
+
+> cd Main_Project
+> mkdir apps
+> cd apps
+> touch __init__.py
+
+ ______MAKE AN APP ____________________________
+|   from Main_Project/apps...                  |
+|   > python ../manage.py startapp First_App   |
+ ----------------------------------------------
+
+> cd ..     back to the primary Main_Project folder
+From Main_Project folder run...
+> python manage.py makemigrations
+> python manage.py migrate
+
+ ______ TO RUN AT THIS POINT _______
+|  > python manage.py runserver     |
+|    http://localhost:8000          |
+|  > CMD + C to quit runserver  |
+ -----------------------------------
+
+From within Main_Project/Main_Project/...
+in settings.py...
+    INSTALLED_APPS = [
+      'apps.First_App', <<<< ADD THIS
+      (...)
+
+and in urls.py...
+    from django.conf.urls import url, include  <<< ADD include
+    from django.contrib import admin
+
+    urlpatterns = [
+        url(r'^', include('apps.First_App.urls')),  <<<< ADD THIS
+        url(r'^admin/', admin.site.urls),
+    ]
+    IMPORTANT NOTE : DON'T INCLUDE THE $ CHARACTER
+    IN YOUR REQUEST ROUTE REGEX. THIS MUST ONLY BE
+    USED IN THE APPS URLS HANDLING
+
+Now go into your apps/First_App folder...
+
+> cd apps/First_App
+> touch urls.py
+
+in urls.py...
+    from django.conf.urls import url
+    from . import views
+    urlpatterns = [
+      url(r'^$', views.index),                # default route - also have a $ in REGEX now
+      url(r'^(?P<number>\d+)$', views.show)   # example route with parameter
+    ]
+
+in views.py...
+add the corresponding view-functions
+for your url route handlers you made...
+
+    from django.shortcuts import render, HttpResponse, redirect  <<<< ADD HttpResponse and redirect
+
+    # --THESE ARE SOME DUMMY VIEW-FUNCTIONS BELOW--
+    def index(request):
+      context = {
+          "email" : "blog@gmail.com",
+          "name" : "mike"
+      }
+      return render(request, "ourApp/index.html", context)
+
+    def show(request, number):
+      response = "<h1>placeholder to display"+ number +"</h2>"
+      return HttpResponse(response)
+
+
+while in ..apps/First_App make a /templates folder
+> mkdir templates
+
+from within ..apps/First_App/templates make another First_App sub-folder
+> cd templates
+> mkdir First_App
+
+from within ..apps/First_App/templates/First_App make your .html files
+> cd First_App
+> touch index.html # ETC, ETC...
+
+Do the same for /static as you did for /templates
+in essence - put them in the same folder ...apps/First_App
+and add new folder with the app name inside that...
+...apps/First_App/static/First_App
+
+then create css, images, and javascript folders from within there
+...apps/First_App/static/First_App/css/<css_files.css>
+...apps/First_App/static/First_App/images/<img_files.png>
+...apps/First_App/static/First_App/javascript/<javascript_files.js>

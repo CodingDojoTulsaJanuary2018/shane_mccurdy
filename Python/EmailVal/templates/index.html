@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Email Validation</title>
+    <style media="screen">
+      body{
+        padding: 0;
+        margin: 0;
+        font-family: verdana;
+      }
+      .wrapper{
+        margin: 50px auto;
+        width: 90%;
+        text-align: center;
+      }
+      .feedback{
+        min-height: 150px;
+      }
+      .feedback h2{
+        background-color: red;
+        color: white;
+        display: inline-block;
+        padding: 20px 100px;
+      }
+      input{
+        width: 60%;
+        line-height: 35px;
+        font-size: 20px;
+      }
+      form{
+        text-align: right;
+        width: 75%;
+        margin: 20px auto;
+        font-size: 1.3em;
+      }
+      button{
+        margin: 20px 10px;
+        border: thin solid black;
+        border-radius: none;
+        padding: 10px 20px;
+        font-size: 1em
+      }
+      button:hover{
+        background-color: #ccc;
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <div class="feedback">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <h2>{{message|safe}}</h2>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+      </div>
+      <form class="" action="/email_validate" method="post">
+        Email Address <input type="email" name="email" value="{{session['email']}}">
+        <br>
+        <button type="submit" name="button">SUBMIT</button>
+      </form>
+
+    </div>
+
+  </body>
+</html>

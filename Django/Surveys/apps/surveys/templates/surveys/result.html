@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Survey Form</title>
+    <style media="screen">
+      .wrapper{
+        width: 510px;
+        margin: 75px auto 20px;
+        border: 2px solid #000;
+        color: #333;
+        font-family: verdana;
+        padding: 20px;
+        box-shadow: 8px 10px 25px #999;
+      }
+      table{
+        width: 400px;
+        margin: 10px auto;
+      }
+      td input, td select, td textarea{
+        width: 100%;
+        line-height: 1em;
+        font-size: 1em;
+        border: 2px solid #000;
+      }
+      tr{
+        line-height: 2em;
+      }
+      button a{
+        text-decoration: none;
+        color: inherit;
+      }
+      button{
+        background-color: #0093ff;
+        color: white;
+        border: 2px solid #000;
+        box-shadow: 3px 3px 0 #333;
+        padding: 5px 20px;
+        font-size: 1em;
+      }
+      button:hover{
+        background-color: #4db4ff;
+      }
+      .right{
+        text-align: right;
+      }
+      .green{
+        background-color: #adefad;
+      }
+      .feedback{
+        font-size: 1.2em;
+        padding: 0 45px;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="wrapper green">
+      <div class="feedback green">
+        Thanks for submitting this form! You have submitted this form {{counter}} times now.
+      </div>
+    </div>
+
+    <div class="wrapper">
+      <table>
+        <tr>
+          <td>Name:</td><td>{{name}}</td>
+        </tr>
+        <tr>
+          <td>Dojo Location:</td><td>{{dojo_location}}</td>
+        </tr>
+        <tr>
+          <td>Favorite Language:</td><td>{{fav_lang}}</td>
+        </tr>
+        {% if comment != "" %}
+        <tr>
+          <td>Comment:</td><td>{{comment}}</td>
+        </tr>
+        {% endif %}
+        <tr>
+          <td class="right" colspan="2">
+            <br>
+            <button type="button" name="button"><a href="/">Go Back</a></button>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+  </body>
+</html>

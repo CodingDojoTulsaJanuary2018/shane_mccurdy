@@ -1,0 +1,142 @@
+<html>
+<head>
+  <title>Friends</title>
+  <style media="screen">
+    body{
+      font-family: verdana;
+      margin: 0;
+    }
+    .wrapper{
+      width: 500px;
+      margin: 30px auto;
+    }
+    table{
+      text-align: left;
+      border: thick solid #333;
+      margin: 0;
+      padding: 0;
+      border-collapse: collapse;
+      width: 500px;
+    }
+    th, td {
+    border-right: 1px solid #333;
+    padding: 10px;
+    }
+    th{
+      background-color: #ccc;
+      padding: 10px;
+    }
+    tr:nth-child(odd) {background-color: #eee;}
+    form{
+      text-align: right;
+      width: 500px;
+      margin: auto;
+      font-size: 1em;
+    }
+    input{
+      line-height:1.2em;
+      font-size: 1.2em;
+    }
+    button{
+      margin: 20px;
+      padding: 10px 15px;
+      background-color: #ccc;
+      font-size: 1em;
+    }
+    button:hover{
+      background-color: #999;
+    }
+    h2 {
+      text-align: center;
+    }
+    header{
+      background-color: #333;
+      color: white;
+      height: 40px;
+    }
+    ul{
+      list-style: none;
+      text-align: right;
+      display: inline-block;
+      position: absolute;
+      right: 0;
+      margin: 0px;
+    }
+    li{
+      display: inline-block;
+      padding: 0 20px;
+    }
+    li:hover{
+      background-color: #666;
+    }
+    li a{
+      text-decoration: none;
+      font-size: 20px;
+      line-height: 40px;
+      color: white;
+    }
+    .username{
+      font-size: 20px;
+      line-height: 40px;
+      color: white;
+      display: inline-block;
+      padding: 0 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    {%if session['logged_in'] %}
+    <div class="username">{{session['auth_user_first_name']}}</div>
+    {%endif%}
+    <ul>
+      {% if session['logged_in'] == 1 %}
+      <li><a href="/logout">LOGOUT</a></li>
+      {%else%}
+      <li><a href="/login">LOGIN</a></li>
+      {%endif%}
+    </ul>
+
+  </header>
+  <div class="wrapper">
+    <div class="feedback">
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          {{message|safe}}
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    </div>
+
+
+  <!-- we can use the line below to see all of our data in our template -->
+  <h1>Friends</h1>
+  <!-- with all the data we can then construct a more structured output -->
+  <table>
+    <tr>
+      <th>Name</th><th>Age</th><th>Friend Since</th><th>Year</th>
+    </tr>
+    {% for friend in all_friends: %}
+      <tr>
+        <td>{{ friend['first_name'] }} {{ friend['last_name'] }}</td>
+        <td>{{ friend['age'] }}</td>
+        <td>{{ friend['friend_since'].strftime('%b %d') }}</td>
+        <td>{{ friend['friend_since'].strftime('%Y') }}</td>
+      </tr>
+     {% endfor %}
+    </table>
+    <br>
+  <h2>Add a Friend</h2>
+  <form action='/add_friends' method='POST'>
+    <label for="first_name">First Name <input type="text" name="first_name" id="first_name"></label>
+    <br>
+    <label for="last_name">Last Name <input type="text" name="last_name" id="last_name"></label>
+    <br>
+    <label for="age">Age <input type="number" name="age" id="age" min="0" max="127" step="1"></label>
+    <br>
+    <button type="submit" name="submit">SUBMIT</button>
+  </form>
+  </div>
+</body>
+</html>

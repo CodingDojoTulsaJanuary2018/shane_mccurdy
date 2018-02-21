@@ -1,0 +1,167 @@
+.wrapper {
+  width: 970px;
+  margin: auto;
+  font-family: helvetica, verdana, sans-serif;
+}
+#header-logo {
+ height: 85px;
+ z-index: 100;
+ position: relative;
+ bottom: -25px;
+}
+#logo-text{
+  color: #444;
+  display: inline;
+  font-weight: 400;
+  font-size: 40px;
+}
+h3 {
+  margin: 0 0 5px 0;
+}
+.text-blue{
+  color: #22649e;
+}
+.text-red{
+  color: #dc4a45;
+}
+.text-teal{
+  color: #16c4df;
+  text-decoration: none;
+}
+.header-bottom{
+  display: block;
+  background: linear-gradient(#25659e, #4e80ab, #25659e);
+}
+#www{
+  color: white;
+  display: inline;
+  line-height: 48px;
+  font-weight: 300;
+  margin-left: 20px;
+  font-size: 27px;
+}
+.content {
+  background: linear-gradient(#e3e3e3, white, white, white, white, white);
+  height: 1000px;
+}
+.sidebar-left {
+  width: 180px;
+  height: 100%;
+  display: inline-block;
+}
+.sidebar-card{
+  font-size: 12px;
+  font-weight: bold;
+  padding: 20px 5px 0;
+  border-bottom: solid thin #777;
+}
+.button-group{
+  margin: 20px 0 20px;
+}
+button{
+  color: white;
+  width: 100%;
+  height: 28px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 2px 2px 2px #777;
+  margin: 2px;
+  font-size: 14px;
+}
+.button-blue{
+  background: linear-gradient(#4e80ab, #25659e);
+}
+.button-orange{
+  background: linear-gradient(#eba94f, #eb790d);
+}
+.advert{
+  margin: 20px 0 0;
+  background-image: url("images/ad_background.png");
+  width: 180px;
+  height: 250px;
+}
+#ad_ninja{
+  width: 70px;
+  margin: 0 auto;
+  display: block;
+}
+#ad_text{
+  color: white;
+  padding: 20px 0 0;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 300;
+}
+#ad_button{
+  background: linear-gradient(#6ccedf, #00c0df);
+  margin: 10px 0 0;
+  width: 80%;
+  margin-left: 10%;
+  box-shadow: 2px 2px 2px #111;
+}
+.main{
+  display: inline-block;
+  vertical-align: top;
+  width: 745px;
+  margin-left: 30px;
+}
+.main-banner{
+  border-bottom: solid thin #777;
+  padding-bottom: 10px;
+  margin-bottom: 5px;
+}
+.banner-left{
+  display: inline-block;
+  vertical-align: top;
+}
+.banner-right{
+  display: inline-block;
+  max-width: 400px;
+  margin-left: 455px;
+}
+#dns{
+  margin: 10px;
+}
+#dns-icon{
+  height: 20px;
+  margin-bottom: -3px;
+}
+#phone-icon{
+  height: 35px;
+  display: inline-block;
+  margin: 10px 5px 0;
+}
+.contact-info{
+  display: inline-block;
+  vertical-align: top;
+  font-size: 10px;
+  color: #777;
+  text-align: center;
+}
+#main-phone{
+  font-size: 25px;
+  color: #16c4df;
+  font-weight: bold;
+}
+.main-content{
+  font-size: 14px;
+}
+#content-img-centered{
+  height: 90px;
+  margin: 20px auto;
+  display: block;
+}
+#big-3-graphic{
+  border: thick solid #0085e0;
+  border-bottom: none;
+  padding: 10px;
+}
+#big-3-img{
+  height: 110px;
+  margin: 0 15px 0 0;
+}
+#big-3-text{
+  display: inline-block;
+  width: 525px;
+  vertical-align: top;
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Range Print</title>
+    <style media="screen">
+    body{
+      padding: 0;
+      margin: 0;
+      background-color: #efe;
+    }
+      h1{
+        margin: 0;
+        height: 2em;
+        line-height: 1.5em;
+        text-align: center;
+        font-family: monospace;
+        width: 100%;
+        color: white;
+        background-color: darkslategrey;
+      }
+      h2{
+        margin: 0;
+        height: 2em;
+        line-height: 1.5em;
+        text-align: center;
+        font-family: monospace;
+        width: 100%;
+        color: white;
+        background-color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Range Print</h1>
+    <h2></h2>
+
+    <script type="text/javascript">
+       function printRange(start, end=false, skip=false){
+         if (!skip){
+           skip = 1;
+         } else {
+           skip = Math.abs(skip); //protects from negative skip values that would cause an infinte loop
+         }
+
+         if (!end){
+           end = start;
+           start = 0;
+         }
+
+         if (start < end+skip){
+           for (var x = start; x < end; x+=skip){
+             console.log(x);
+           }
+         }
+
+       } //end printRange
+
+       printRange(2, 10, 2);
+       printRange(4, 8);
+       printRange(4);
+       console.log("_______");
+       printRange(-2, 10, -2);
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Numbers Only</title>
+    <style media="screen">
+    body{
+      padding: 0;
+      margin: 0;
+      background-color: #efe;
+      line-height: 1.5em;
+      text-align: center;
+      font-family: monospace;
+      width: 100%;
+    }
+      h1{
+        margin: 0;
+        height: 2em;
+        line-height: 1.5em;
+        color: white;
+        background-color: darkslategrey;
+      }
+      h2{
+        margin: 0;
+        height: 2em;
+        line-height: 1.5em;
+        color: white;
+        background-color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Numbers Only</h1>
+    <h2>Returns a new arry</h2>
+
+    <script type="text/javascript">
+
+    function sortOutNumbers(arr){
+      var count = 0;
+      console.log("ran here");
+      for (var x = 0; x < arr.length; x++){
+        if(typeof arr[x] === "number"){
+          arr[x-count] == arr[x];
+        } else {
+          count++;
+        }
+      } //end for
+      arr.length-=count;
+    }//end sortOutNumbers
+
+
+    function numbersOnly(arr) {
+      var returnArr = [];
+
+      for(var x=0; x < arr.length; x++){
+        if(typeof arr[x] === "number"){
+          returnArr.push(arr[x]);
+        }
+      }//end for loop
+      return returnArr;
+    }//end numbersOnly
+
+    var oldArray = [1, "apple", -3, "orange", 0.5];
+    var newArray = numbersOnly(oldArray);
+    // newArray is [1, -3, 0.5]
+
+    console.log(newArray);
+    console.log(oldArray);
+
+    sortOutNumbers(oldArray);
+
+    console.log(oldArray);
+
+    </script>
+  </body>
+</html>

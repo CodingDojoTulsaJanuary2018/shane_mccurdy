@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Email Validation</title>
+    <style media="screen">
+      body{
+        padding: 0;
+        margin: 0;
+        font-family: verdana;
+      }
+      .wrapper{
+        margin: 50px auto;
+        width: 90%;
+        text-align: center;
+      }
+      .feedback{
+        min-height: 150px;
+      }
+      .feedback h2{
+        background-color: green;
+        color: white;
+        display: inline-block;
+        padding: 20px 100px;
+      }
+      table{
+        width: 600px;
+        margin: 30px auto;
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <div class="feedback">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <h2>{{message|safe}}</h2>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+      </div>
+
+      <h3>Email Addresses Entered</h3>
+      <table>
+
+        {% for email in emails_list: %}
+          <tr>
+            <td>{{ email['email'] }} {{ email['created_at'].strftime('%b %d %Y') }}</td>
+          </tr>
+         {% endfor %}
+        </table>
+
+    </div>
+
+  </body>
+</html>

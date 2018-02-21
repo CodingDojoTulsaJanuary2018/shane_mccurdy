@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Ninja Cat</title>
+    <script
+      src="http://code.jquery.com/jquery-3.3.1.js"
+      integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+      crossorigin="anonymous">
+    </script>
+    <style media="screen">
+      body{
+        background: linear-gradient(to right, #222, black, #222);
+      }
+      .wrapper{
+        width: 200px;
+        display: block;
+        text-align: center;
+        margin: 300px auto;
+      }
+    </style>
+    <script type="text/javascript">
+      $(document).ready(function(){
+
+        $(".wrapper img").click(function(){
+          if($(this).attr("changeTo") == "ninja"){ //toggles the images
+            $(this).attr("src","img/ninja"+ $(this).attr("id") +".png");
+            $(this).attr("changeTo", "cat");
+          }else{
+            $(this).attr("src","img/cat"+ $(this).attr("id") +".png");
+            $(this).attr("changeTo", "ninja");
+          }
+
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <img src="img/cat0.png" id="0" changeTo="ninja" alt="catninja">
+      <img src="img/cat1.png" id="1" changeTo="ninja" alt="catninja">
+      <img src="img/cat2.png" id="2" changeTo="ninja" alt="catninja">
+      <img src="img/cat3.png" id="3" changeTo="ninja" alt="catninja">
+      <img src="img/cat4.png" id="4" changeTo="ninja" alt="catninja">
+    </div>
+  </body>
+</html>
