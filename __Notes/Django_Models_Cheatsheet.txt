@@ -13,6 +13,9 @@
 
 ===================================================================
 
+from __future__ import unicode_literals
+from django.db import models
+
 class <**Name**>(models.Model):
   # id is auto-generated
 	created_at = models.DateTimeField(auto_now_add=True)
@@ -25,9 +28,10 @@ class <**Name**>(models.Model):
   title = models.CharField(max_length=255)
   desc = models.TextField()
   desc = models.TextField(default="")
-	books = models.ManyToManyField(Book, related_name="publishers")
-  authors = models.ManyToManyField(Author, related_name="Book")
-  blog = models.ForeignKey(<Other_table>, related_name = "<**Name**>")
+	books = models.ManyToManyField(Book, related_name="publishers") #Django auto-sets the id
+  # ^-local/M2M variable-key       ^-foreign table       ^-foreign/M2M variable-key
+  authors = models.ManyToManyField(Author, related_name="book")
+  blog = models.ForeignKey(<Other_table>, related_name = "<**name** -as you want it in Other_table**>")
 
 ++++++++ EXAMPLE CODE DUMP +++++++
 

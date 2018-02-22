@@ -1,0 +1,79 @@
+In [1]: from apps.likes_books.models import *
+
+In [2]: User.objects.create(first_name='Joe', last_name='Schmoe',email='js@gmail.com')
+Out[2]: <User: User object>
+
+In [3]: User.objects.create(first_name='Spider', last_name='Man',email='pp@gmail.com')
+Out[3]: <User: User object>
+
+
+In [4]: User.objects.create(first_name='Mary', last_name='Jane',email='mj@gmail.com')
+Out[4]: <User: User object>
+
+In [5]: Book.objects.create(name='JSON for Dummies', desc='a book about JSON', uploader=Users.objects.first())
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-5-c3c8d95df407> in <module>()
+----> 1 Book.objects.create(name='JSON for Dummies', desc='a book about JSON', uploader=Users.objects.first())
+
+NameError: name 'Users' is not defined
+
+In [6]: Book.objects.create(name='JSON for Dummies', desc='a book about JSON', uploader=User.objects.first())
+Out[6]: <Book: Book object>
+
+In [7]: u1 = User.objects.first()
+
+In [8]: u1.id
+Out[8]: 1
+
+In [9]: u2 = User.objects.get(id=2)
+In [10]: u3 = User.objects.get(id=3)
+
+In [11]: Book.objects.create(name='Python for Dummies', desc='a book about Python', uploader=u1)
+Out[11]: <Book: Book object>
+
+
+In [12]: b1 = Book.objects.get(id=1)
+
+In [13]: b2 = Book.objects.get(id=2)
+
+In [14]: b3 = Book.objects.create(name='Garfeild', desc='Fat cat eats lasagna', uploader=u3)
+
+In [15]: b4 = Book.objects.create(name='Marmaduke', desc='Giant dog = shenanigans', uploader=u3)
+
+In [16]: b1.liked_users.add(u1)
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-16-4564295a58d0> in <module>()
+----> 1 b1.liked_users.add(u1)
+
+AttributeError: 'Book' object has no attribute 'liked_users'
+
+In [17]: b1.like_users.add(u1)
+
+In [18]: b4.like_users.add(u1)
+
+In [19]: b1.like_users.add(u2)
+
+In [20]: b3.like_users.add(u2)
+
+In [21]: u3.liked_books.add(b1)
+
+In [22]: u3.liked_books.add(b2)
+
+
+In [23]: u3.liked_books.add(b3)
+
+In [24]: u3.liked_books.add(b4)
+
+In [25]: b1.like_users.all()
+Out[25]: <QuerySet [<User: User object>, <User: User object>, <User: User object>]>
+
+In [26]: b1.uploader
+Out[26]: <User: User object>
+
+In [27]: b2.like_users.all()
+Out[27]: <QuerySet [<User: User object>]>
+
+In [28]: b2.uploader
+Out[28]: <User: User object>
