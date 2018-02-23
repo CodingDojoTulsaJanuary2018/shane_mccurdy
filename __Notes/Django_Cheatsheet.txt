@@ -42,6 +42,7 @@ and in urls.py...
 
     urlpatterns = [
         url(r'^', include('apps.First_App.urls')),  <<<< ADD THIS
+        url(r'^users/',include('apps.users.urls', namespace='users')),
         url(r'^admin/', admin.site.urls),
     ]
     IMPORTANT NOTE : DON'T INCLUDE THE $ CHARACTER
@@ -56,28 +57,36 @@ Now go into your apps/First_App folder...
 in urls.py...
     from django.conf.urls import url
     from . import views
+
     urlpatterns = [
-      url(r'^$', views.index),                # default route - also have a $ in REGEX now
-      url(r'^(?P<number>\d+)$', views.show)   # example route with parameter
+      url(r'^$', views.index, name='users'),                # default route with a name - also have a $ in REGEX now
+      url(r'^(?P<number>\d+)$', views.show, name='show')   # example route with parameter and named route
     ]
 
 in views.py...
 add the corresponding view-functions
 for your url route handlers you made...
 
-    from django.shortcuts import render, HttpResponse, redirect  <<<< ADD HttpResponse and redirect
+    from django.shortcuts import render, HttpResponse, redirect  #<<<< ADD HttpResponse and redirect
+    from django.core.urlresolvers import reverse #<<<< ADD for named routes
+    from django.contrib import messages #<<<< ADD for session flash messages
+    from models import *
 
     # --THESE ARE SOME DUMMY VIEW-FUNCTIONS BELOW--
     def index(request):
       context = {
-          "email" : "blog@gmail.com",
-          "name" : "mike"
+          'all_users': User.objects.all()
       }
       return render(request, "ourApp/index.html", context)
 
     def show(request, number):
       response = "<h1>placeholder to display"+ number +"</h2>"
       return HttpResponse(response)
+
+    def create(request):
+        if request.method == 'POST':
+            User.objects.create(first_name=request.POST['first_name'],last_name=request.POST['last_name'],email=request.POST['email'])
+        return redirect(reverse('Our_app:index'))
 
 
 while in ..apps/First_App make a /templates folder

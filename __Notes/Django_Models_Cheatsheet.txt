@@ -125,3 +125,23 @@ Other methods to retrieve records
   Comment.objects.get(id=15).blog.name - returns the name of the blog where Comment id = 15 belongs to
 Setting Relationship
   Comment.objects.create(blog=Blog.objects.get(id=1), comment="test") - create a new comment where the comment's blog points to Blog.objects.get(id=1).
+
+
+++++++++++++++++++ USING models.Manager ++++++++++++++++++++++++
+
+  class UserManager(models.Manager):
+      def user_validator(self, postData):
+          errors = {}
+          if len(postData['first_name']) < 5:
+              errors["name"] = "First name should be more than 5 characters"
+          if len(postData['email']) < 7:
+              errors["desc"] = "User desc should be more than 6 characters"
+          return errors
+
+  class User(models.Model):
+      created_at = models.DateTimeField(auto_now_add=True)
+      updated_at = models.DateTimeField(auto_now=True)
+      email = models.CharField(max_length=255)
+      first_name = models.CharField(max_length=255)
+      last_name = models.CharField(max_length=255)
+      objects = UserManager() #<<<< ADD THIS REFERENCE

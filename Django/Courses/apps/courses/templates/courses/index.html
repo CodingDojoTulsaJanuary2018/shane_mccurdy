@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Add a student to all bootcamp courses</title>
+  </head>
+  <style media="screen">
+    body{
+      font-family: verdana;
+      padding: 75px;
+    }
+    #courses table{
+      border: solid 2px #333;
+      border-collapse: collapse;
+    }
+    #courses th{
+      background-color: #aaa;
+    }
+    #courses tr,#courses td {
+      border: solid 2px #333;
+      padding: 10px;
+    }
+    #courses tr:nth-child(even){
+      background-color: #ddd;
+    }
+    #courses tr:hover{
+      background-color: #aaa;
+    }
+    button{
+      background-color: #3d9e00;
+      color: white;
+      border: 2px solid #000;
+      box-shadow: 3px 3px 0 #333;
+      padding: 5px 20px;
+      font-size: 1em;
+      margin: 20px 0;
+    }
+    button:hover{
+      background-color: #61d815;
+    }
+    #add{
+      width: 400px;
+      vertical-align: top;
+      text-align: right;
+    }
+    #add button {
+      text-align: right;
+    }
+    #add input, textarea{
+      border: solid 2px #333;
+      padding: 10px;
+      width: 100%;
+      font-size: 1em;
+    }
+    table{
+      text-align: left;
+    }
+    .center{
+      text-align: center;
+    }
+    .messages{
+      list-style-type: none;
+      background-color: #bd0000;
+      color: white;
+      padding: 20px;
+      position: absolute;
+      top: -16px;
+      width: 100%;
+      left: 0px;
+    }
+  </style>
+  <body>
+    {% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+          <li>{{ message }}</li>
+          {% endfor %}
+      </ul>
+    {% endif %}
+
+    <div id="add">
+      <form action="add" method="post">
+        {% csrf_token %}
+        <table>
+          <tr>
+            <th colspan="2" class="center" >Add a new course</th>
+          </tr>
+          <tr>
+            <td>Name:</td><td> <input type="text" name="name" value="Al Gore Rythms"> </td>
+          </tr>
+          <tr>
+            <td>Description:</td><td> <textarea name="desc" rows="4" cols="40"> Interpretive syncopative algebraic data-mongering dance routing - maracas included</textarea> </td>
+          </tr>
+        </table>
+        <button type="submit" name="button">Add</button>
+      </form>
+    </div>
+
+    <div id="courses">
+      <h1>Courses</h1>
+      <table>
+        <tr>
+          <th>Course Name</th><th>Description</th><th>Date Added</th><th>Actions</th>
+        </tr>
+        {% for course in courses %}
+        <tr>
+          <td>{{course.name}}</td><td>{{course.desc}}</td><td>{{course.created_at}}</td><td> <a href="courses/destroy/{{course.id}}">Remove</a> </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </body>
+</html>

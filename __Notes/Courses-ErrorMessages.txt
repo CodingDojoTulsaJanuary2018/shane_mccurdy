@@ -1,0 +1,30 @@
+in your apps views.py you need to import messages like so...
+
+  from django.contrib import messages
+
+Your "add" route should handle errors like so...
+
+  def add(request):
+      errors = Course.objects.course_validator(request.POST)
+      if len(errors):
+          for key, error in errors.iteritems():
+              messages.error(request, error)
+          return redirect( ... )
+      else:
+          Course.objects.create(...etc)
+          return redirect( ... )
+
+
+This is a simple way to print in your template...
+
+  {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+  {% endif %}
+
+
+Django Docs...
+https://docs.djangoproject.com/en/1.11/ref/contrib/messages/

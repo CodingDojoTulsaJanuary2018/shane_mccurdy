@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Delete a course</title>
+    <style media="screen">
+      body{
+        font-family: verdana;
+        padding: 50px;
+        text-align: center;
+      }
+      table{
+        margin: 50px auto;
+        width: 700px;
+      }
+      td{
+        padding: 10px;
+        vertical-align: top;
+        text-align: left;
+      }
+      .butt{
+        text-decoration: none;
+        color: white;
+        border: 2px solid #000;
+        box-shadow: 3px 3px 0 #333;
+        padding: 5px 20px;
+        font-size: 1em;
+        margin: 20px 0;
+      }
+      .red{
+        background-color: #bd0000;
+      }
+      .red:hover {
+        background-color: red;
+      }
+      .gray{
+        background-color: #444;
+      }
+      .gray:hover {
+        background-color: #888;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Are you sure you want to delete the folowing course?</h1>
+    <table>
+      <tr>
+        <td>Name: </td><td>{{course.name}}</td>
+      </tr>
+      <tr>
+        <td>Description: </td><td>{{course.desc}}</td>
+      </tr>
+    </table>
+    <a class="butt gray" href="/">No</a> <a class=" butt red" href="{{course.id}}/destroy_confirmed"> Yes! I want to delete this</a>
+  </body>
+</html>
