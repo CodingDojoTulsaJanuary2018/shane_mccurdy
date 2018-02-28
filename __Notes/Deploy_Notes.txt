@@ -1,0 +1,206 @@
+================== PREPARE YOUR PROJECT ==================
+
+From within your project folder, where manage.py is visible...
+> pip freeze > requirements.txt
+
+In your text editor, open your requirements.txt file and,
+if they exist, remove pygraphviz, pydot and anything with MySQL in it.
+These modules can be tricky to install and require additional installations,
+so we remove them now to prevent problems later.
+
+> touch .gitignore
+
+Open your .gitignore file in your text editor and add the lines:
+*.pyc
+venv/
+
+Now initialize a new repo:
+> git init
+> git add --all
+> git commit -m "initial commit"
+
+Create a repo on Github then point this new repo to the one on Github with...
+"…or push an existing repository from the command line"
+> git remote add origin https://github.com/<git_username>/<repo_name>.git
+> git push -u origin master
+
+
+================== AWS INSTANCE ==================
+
+Login to AWS...
+https://aws.amazon.com/
+
+Open the "> All Services" drop down...
+Under "Compute" select "EC2"
+
+Under "Create Instance" select "Launch Instance v" (big blue button)
+
+Select "Ubuntu Server 16.04..." 64-bit  (big blue button)
+
+Double-check "t2.micro - Free tier eligible" is checked,
+then select "Review and Launch" (big blue button)
+
+*IMPORTANT* select "Edit security groups"
+Reset SSH source from the dropdown menu to "MyIP".
+This will have to be reset every time you change networks!
+
+Click the "Add Rule" button twice to add a "HTTP" and "HTTPS" type from the drop downs,
+set both of their sources to "Anywhere",
+and then click "Review and Launch" (big blue button)
+
+Then click "Launch" and the first time you have to select "Create a new key pair"
+from the pop up to create a .pem file. Add a name, then Download Key Pair.
+*Save this somewhere secure, but NEVER github or share it publicly!
+
+Once the key pair file is sorted out, you will be directed
+to a "Launch Status" page. Just go click on "View Instance"
+
+Once on your "Instances" page, you will see your new instance listed out.
+It should be given a name, to help you identify and distinguish it later from other instances.
+
+================= CONNECT TO AWS INSTANCE =================
+
+Back in your terminal, cd to the folder that holds the key file you just downloaded.
+> cd /<folder_name>   ...Desktop/DONOTGITHUB
+
+Now we’re ready to use our .pem file to connect to the AWS instance!
+In your AWS console, click Connect and use the supplied code in your terminal...
+ ...EXAMPLE...
+> chmod 400 deployAWS.pem
+> ssh -i "<pem_filename>.pem" ubuntu@ec2-##-###-##-###.us-east-2.compute.amazonaws.com
+
+||=============>>  NOW THAT YOU ARE IN... <<===============||
+
+First, let’s install python, python dev, pip, nginx, and git...
+> sudo apt-get update
+> sudo apt-get install python-pip python-dev nginx git
+
+YOU CAN SEE nginx SPLASH PAGE AT YOUR IP NOW!
+
+>> pip install --upgrade pip
+>> sudo apt-get update  (again, to be safe)
+> sudo pip install virtualenv
+
+Now you’ll clone your project from GitHub.
+You’ll type into your terminal something that looks like this:
+> git clone https://github.com/shanemac10/<repo_name>.git
+
+cd into your project folder and double check you have your manage.py there..
+> cd deployMe
+> ...~/deployMe$ ls
+  "apps  db.sqlite3  manage.py  requirements.txt ..etc"
+
+Then start a virtual environment from there, within your project...
+> virtualenv venv
+> source venv/bin/activate
+> pip install -r requirements.txt
+> pip install django bcrypt django-extensions
+> pip install gunicorn
+
+===== USING VIM =====
+|  press i to enter INSERT mode
+|  press the esc key to exit INSERT mode
+|  Type a colon : then wq then ENTER (:wq)
+|  quit without saving, type q! after the colon
+|  save without quitting, type w after the colon
+|_____________________
+
+
+Anywhere you see {{myRepoName}} – replace that whole thing INCLUDING the {{}} with your outer folder name.
+Anywhere you see {{projectName}} – replace that whole thing INCLUDING the {{}} with the project folder name.
+Anywhere you see {{yourEC2.public.ip}} – replace that whole thing INCLUDING the {{}} with the public IP address of your newly created server.
+
+
+Navigate into your main project directory (where settings.py lives).
+> cd {{projectName}}
+> sudo vim settings.py
+
+# Inside settings.py
+# modify these lines
+DEBUG = False
+ALLOWED_HOSTS = ['{{yourEC2.public.ip}}', '*']     # include the ''
+# add the line below to the bottom of the file
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
+Save and quit esc, :wq, ENTER
+
+Now go back...
+> cd ..
+# Say 'yes' to the dialogue box after typing this next command:
+> python manage.py collectstatic
+
+
+============== GUNICORN =============
+Let's test out Gunicorn real quick by directing it to our Django project's wsgi.py file, which is the entry point to our application.
+> gunicorn --bind 0.0.0.0:8000 {{projectName}}.wsgi:application
+> CONTROL + C ..to deactivte Gunicorn
+> deactivte ..the venv (((( DON'T ACTUALLY DO THIS, LEAVE IT RUNNING ))))
+
+To be able to turn Gunicorn on and off,  we're going to create a systemd service file and make some changes
+> sudo vim /etc/systemd/system/gunicorn.service
+
+In the vim text editor copy and paste the following code.
+Don’t forget to type i before copying and pasting the lines below,
+otherwise vim may cut off a few characters at the beginning!
+
+[Unit]
+Description=gunicorn daemon
+After=network.target
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/{{repoName}}
+ExecStart=/home/ubuntu/{{repoName}}/venv/bin/gunicorn --workers 3 --bind unix:/home/ubuntu/{{repoName}}/{{projectName}}.sock {{projectName}}.wsgi:application
+[Install]
+WantedBy=multi-user.target
+
+> esc, :wq, ENTER to save
+
+Now that our service file has been created,
+we can enable it so that it starts on boot with these 3 commands.
+
+!!! NOTE !!! : If any additional changes are made to the gunicorn.service
+the previous three commands will need to be run in order to sync things up
+and restart our service.
+
+> sudo systemctl daemon-reload
+> sudo systemctl start gunicorn
+> sudo systemctl enable gunicorn
+
+
+One last file to edit...
+> sudo vim /etc/nginx/sites-available/{{projectName}}
+
+i
+server {
+  listen 80;
+  server_name {{yourEC2.public.ip}};
+  location = /favicon.ico { access_log off; log_not_found off; }
+  location /static/ {
+      root /home/ubuntu/{{myRepoName}};
+  }
+  location / {
+      include proxy_params;
+      proxy_pass http://unix:/home/ubuntu/{{myRepoName}}/{{projectName}}.sock;
+  }
+}
+
+
+> esc, :wq, ENTER to save
+
+
+Now in the terminal, run the following
+(taking note of the space after {{projectName}})-------v
+
+> sudo ln -s /etc/nginx/sites-available/{{projectName}} /etc/nginx/sites-enabled
+
+Next, test to make sure that there are no syntax errors in any of your Nginx files:
+> sudo nginx -t
+
+Remove the Nginx default site display from directory sites-enabled...
+> sudo rm /etc/nginx/sites-enabled/default
+
+Restart your Nginx server...
+> sudo service nginx restart
+
+...

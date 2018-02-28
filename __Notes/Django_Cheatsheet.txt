@@ -1,9 +1,9 @@
 --SETTING UP A VIRTUAL ENVIRONMENT--
 
-> virtualenv djangoEnv
-> source djangoEnv/bin/activate
+> virtualenv venv
+> source venv/bin/activate
 
-(djangoEnv)>pip install Django==1.10
+(djangoEnv)> pip install Django==1.10
 
 --BUILDING A DJANGO PROJECT--
 
@@ -63,6 +63,10 @@ in urls.py...
       url(r'^(?P<number>\d+)$', views.show, name='show')   # example route with parameter and named route
     ]
 
+named route calling in html templates
+  {% url '<app namespace>:<route name>' %}
+  example: {% url 'user:index' %}
+
 in views.py...
 add the corresponding view-functions
 for your url route handlers you made...
@@ -87,6 +91,8 @@ for your url route handlers you made...
         if request.method == 'POST':
             User.objects.create(first_name=request.POST['first_name'],last_name=request.POST['last_name'],email=request.POST['email'])
         return redirect(reverse('Our_app:index'))
+        #--OR--                                  v----must be inline format ---v     CANNOT pass like 'context' w/ dict type
+        return redirect(reverse('Our_app:show', kwargs={'item_id': new_item.id} ))
 
 
 while in ..apps/First_App make a /templates folder

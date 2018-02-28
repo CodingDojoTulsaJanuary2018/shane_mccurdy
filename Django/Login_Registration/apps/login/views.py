@@ -29,7 +29,7 @@ def add(request):
         for key, error in errors.iteritems():
             messages.error(request, error)
         return redirect('/')
-    else:
+    else: # need to check if email exists and not duplicete data in the DB
         newUser = User.objects.create(
             first_name=request.POST['first_name'],
             last_name=request.POST['last_name'],
