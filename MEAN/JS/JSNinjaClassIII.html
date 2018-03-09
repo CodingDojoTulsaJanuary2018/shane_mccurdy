@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>JavaScript Ninja Class III</title>
+    <style media="screen">
+      body{
+        color: #444;
+        font-family: monospace;
+      }
+      h1{
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Ninja Class III</h1>
+
+
+    <script>
+    // ---Part I---
+    class Ninja{
+      constructor(name){
+        this.name = name;
+        this.health = 100;
+        this.speed = 3;
+        this.strength = 3;
+      }
+      sayName(){
+        console.log("My ninja name is "+ this.name +"!");
+      }
+      showStats(){
+        console.log("Name: "+ this.name +", Health: " + this.health + ", Speed: "+ this.speed +", Strength: " + this.strength );
+      }
+      drinkSake(){
+        this.health +=10;
+      }
+    }
+    // ---Part II - Sensei Class---
+
+    const ninja1 = new Ninja("Hyabusa");
+
+    ninja1.sayName();
+    // -> "My ninja name is Hyabusa!"
+    ninja1.showStats();
+    // -> "Name: Hayabusa, Health: 100, Speed: 3, Strength: 3"
+    ninja1.drinkSake();
+    ninja1.showStats();
+
+    class Sensei extends Ninja{
+      constructor(name){
+        super(name);
+        this.health = 200;
+        this.speed = 10;
+        this.strength = 10;
+        this.wisdom = 10;
+      }
+      speakWisdom(){
+        super.drinkSake();
+        console.log("What one programmer can do in one month, two programmers can do in two months.");
+      }
+    }
+
+    // example output
+    const superSensei = new Sensei("Master Splinter");
+    superSensei.speakWisdom();
+    // -> "What one programmer can do in one month, two programmers can do in two months."
+    superSensei.showStats();
+    // -> "Name: Master Splinter, Health: 210, Speed: 10, Strength: 10"
+    superSensei.speakWisdom();
+    superSensei.showStats();
+
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>JavaScript Objects</title>
+    <style media="screen">
+      body{
+        color: #444;
+        font-family: monospace;
+      }
+      h1{
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>JavaScript Objects</h1>
+
+
+    <script>
+
+    //---Challenge 1---
+    let students = [
+      {name: 'Remy', cohort: 'Jan'},
+      {name: 'Genevieve', cohort: 'March'},
+      {name: 'Chuck', cohort: 'Jan'},
+      {name: 'Osmund', cohort: 'June'},
+      {name: 'Nikki', cohort: 'June'},
+      {name: 'Boris', cohort: 'June'}
+    ];
+
+    // for (let student in students){
+    //   console.log("Name: "+ students[student].name +", Cohort: "+ students[student].cohort );
+    // }
+
+
+    //---Challenge 2---
+    let users = {
+        employees: [
+            {'first_name':  'Miguel', 'last_name': 'Jones'},
+            {'first_name': 'Ernie', 'last_name': 'Bertson'},
+            {'first_name': 'Nora', 'last_name': 'Lu'},
+            {'first_name': 'Sally', 'last_name': 'Barkyoumb'}
+        ],
+        managers: [
+          {'first_name': 'Lillian', 'last_name': 'Chambers'},
+          {'first_name': 'Gordon', 'last_name': 'Poe'}
+        ]
+     };
+
+     for (let entry in users){
+       console.log(entry.toUpperCase());
+       count = 1;
+       for(let x in users[entry]){
+         console.log(count +" - "+users[entry][x]["last_name"].toUpperCase()+", "
+         +users[entry][x]["first_name"].toUpperCase()+" - "
+         + ( users[entry][x]["last_name"].length + users[entry][x]["first_name"].length ) );
+         count++;
+       }
+     }
+
+    </script>
+
+  </body>
+</html>

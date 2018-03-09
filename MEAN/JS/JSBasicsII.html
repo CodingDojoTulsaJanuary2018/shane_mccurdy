@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>JS Basics II</title>
+    <style media="screen">
+      h1{
+        text-align: center;
+        color: #444;
+        font-family: monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>JS Basics II</h1>
+
+    <script>
+
+      function magic_multiply(x, y){
+        // --- your code here ---
+        if (x == 0 && y == 0){
+          x = "All inputs 0"
+        } else if (typeof x == "object"){
+          if (typeof x == "object" && x != [] && typeof y == "number" ){
+            for (let i = 0; i<x.length; i++){
+              x[i] = x[i] * y;
+            }
+          }
+        } else if (typeof y == "string"){
+          x = "Error: Can not multiply by string"
+        } else if (typeof x == "string" && typeof y == "number" && y > 0){
+          let temp = ""
+          for (var i = 0; i < Math.floor(y); i++){
+            temp+=x;
+          }
+          x = temp;
+        } else if (typeof x == "number" && typeof y == "number") {
+          x = x*y;
+        } else {
+          x = "What are you trying to pull, huh?! Nope. Not doing it."
+        }
+        return x;
+      }
+      // ---Test 1---
+      let test1 = magic_multiply(5, 2);
+      console.log(test1);
+      // => 10
+
+      // ---Test 2---
+      let test2 = magic_multiply(0, 0);
+      console.log(test2);
+      // => "All inputs 0"
+
+      // ---Test 3---
+      let test3 = magic_multiply([1, 2, 3], 2);
+      console.log(test3);
+      // => [2, 4, 6]
+
+      // ---Test 4---
+      let test4 = magic_multiply(7, "three");
+      console.log(test4);
+      // => "Error: Can not multiply by string"
+
+      // ---Test 5---
+      let test5 = magic_multiply("Brendo", 4);
+      console.log(test5);
+      // => "BrendoBrendoBrendoBrendo"
+
+      let test6 = magic_multiply("Brendo", []);
+      console.log(test6);
+      // => "What are you trying to pull, huh?! Nope. Not doing it."
+
+    </script>
+
+  </body>
+</html>

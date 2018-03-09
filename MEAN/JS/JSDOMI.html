@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>JavaScript DOM I</title>
+    <style media="screen">
+      body{
+        color: #444;
+        font-family: monospace;
+      }
+      h1{
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>JavaScript DOM I</h1>
+
+    <ul id="main">
+        <!-- this is empty-->
+    </ul>
+    <div id="submain">
+      <!-- this is bonus-->
+    </div>
+    <script>
+      function appendList(array, id){
+        putHere = document.getElementById(id);
+        for (var x = 0; x < array.length; x++){
+          newChild = document.createElement("li");
+          newChild.innerHTML = array[x];
+          putHere.appendChild(newChild);
+        }
+      }
+      let students = ["Jeff", "Jenny", "Javier", "Joslyn", "Joe", "Jane", "Django"];
+      let target_id = "main";
+      appendList(students, target_id);
+
+      //---Bonus---
+      function superAppend(array, element, id){
+        putHere = document.getElementById(id);
+        for (var x = 0; x < array.length; x++){
+          newChild = document.createElement(element);
+          newChild.innerHTML = array[x];
+          putHere.appendChild(newChild);
+        }
+      }
+
+      let moreNames = ["Jeff", "Jenny", "Javier", "Joslyn", "Joe", "Jane", "Django"];
+      superAppend(moreNames, "div", "submain");
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>JS Intermediate</title>
+    <style media="screen">
+      h1{
+        text-align: center;
+        color: #444;
+        font-family: monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>JS Intermediate</h1>
+
+    <script>
+
+
+      // ---Part I---
+      function starString(num){
+        returnMe = "";
+        while(num > 0 ){
+          returnMe+= "*";
+          num--;
+        }
+        return returnMe;
+      }
+      // let stars = starString(8);
+      // console.log(stars);
+      // console.log(starString(0));
+
+      // ---Part II---
+      // function drawStars(arr){
+      //   for (var x = 0; x < arr.length; x++){
+      //     temp = "";
+      //     for(var y = 0; y < arr[x]; y++){
+      //       temp+="*";
+      //     }
+      //     console.log(temp);
+      //   }
+      // }
+      // drawStars( [2,3,4,5,4,3,2] );
+      // drawStars( [] );
+
+      // ---Part III---
+      function drawStars(arr){
+        for (var x = 0; x < arr.length; x++){
+          temp = "";
+          if (typeof arr[x] == "string"){
+            for(var y = 0; y < arr[x].length; y++){
+              temp+=arr[x][0].toLowerCase();
+            }
+          } else {
+            for(var y = 0; y < arr[x]; y++){
+              temp+="*";
+            }
+          }
+          console.log(temp);
+        }
+      }
+      drawStars( [2,"Joe",4,"Victor",4,3,"Randy"] );
+      drawStars( [] );
+      drawStars( [1,2,3] );
+    </script>
+
+  </body>
+</html>

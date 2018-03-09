@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>JavaScript Deck Of Cards</title>
+    <style media="screen">
+      body{
+        color: #222;
+        font-family: monospace;
+      }
+      h1{
+        text-align: center;
+      }
+      h2{
+        display: block;
+        text-align: left;
+      }
+      #table {
+        background:linear-gradient(to bottom right, green, #03b703, green);
+        text-align: center;
+        border-radius: 350px;
+        border: solid #803503 35px;
+      }
+      .wrapper{
+        margin: 40px auto;
+        width: 80%;
+        padding: 75px 75px;
+      }
+      .player_hand{
+        width: 150px;
+        padding: 0 15px 0 40px;
+        margin: 15px auto;
+        display: inline-block;
+      }
+      .cover_card{
+        width: 71px;
+        height: 96px;
+        background-image: url('./cards-png/b1fv.png');
+        position: relative;
+        left: -79px;
+        display: inline-block;
+      }
+      .cover_card:hover{
+        background: none;
+      }
+      .card{
+        width: 71px;
+        height: 96px;
+        left: -71px;
+        background-image: url('./cards-png/b1fv.png');
+        display: inline-block;
+        box-shadow: -2px 2px 2px #1f3a009e;
+      }
+      .up{
+        position: relative;
+        top: -36px;
+        left: 11px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Deck Of Cards</h1>
+    <div id="table" class="wrapper">
+
+    <script>
+
+    const full_deck = [
+      {suit: "spades", card: "1"},
+      {suit: "spades", card: "2"},
+      {suit: "spades", card: "3"},
+      {suit: "spades", card: "4"},
+      {suit: "spades", card: "5"},
+      {suit: "spades", card: "6"},
+      {suit: "spades", card: "7"},
+      {suit: "spades", card: "8"},
+      {suit: "spades", card: "9"},
+      {suit: "spades", card: "10"},
+      {suit: "spades", card: "J"},
+      {suit: "spades", card: "Q"},
+      {suit: "spades", card: "K"},
+      {suit: "clubs", card: "1"},
+      {suit: "clubs", card: "2"},
+      {suit: "clubs", card: "3"},
+      {suit: "clubs", card: "4"},
+      {suit: "clubs", card: "5"},
+      {suit: "clubs", card: "6"},
+      {suit: "clubs", card: "7"},
+      {suit: "clubs", card: "8"},
+      {suit: "clubs", card: "9"},
+      {suit: "clubs", card: "10"},
+      {suit: "clubs", card: "J"},
+      {suit: "clubs", card: "Q"},
+      {suit: "clubs", card: "K"},
+      {suit: "hearts", card: "1"},
+      {suit: "hearts", card: "2"},
+      {suit: "hearts", card: "3"},
+      {suit: "hearts", card: "4"},
+      {suit: "hearts", card: "5"},
+      {suit: "hearts", card: "6"},
+      {suit: "hearts", card: "7"},
+      {suit: "hearts", card: "8"},
+      {suit: "hearts", card: "9"},
+      {suit: "hearts", card: "10"},
+      {suit: "hearts", card: "J"},
+      {suit: "hearts", card: "Q"},
+      {suit: "hearts", card: "K"},
+      {suit: "diamonds", card: "1"},
+      {suit: "diamonds", card: "2"},
+      {suit: "diamonds", card: "3"},
+      {suit: "diamonds", card: "4"},
+      {suit: "diamonds", card: "5"},
+      {suit: "diamonds", card: "6"},
+      {suit: "diamonds", card: "7"},
+      {suit: "diamonds", card: "8"},
+      {suit: "diamonds", card: "9"},
+      {suit: "diamonds", card: "10"},
+      {suit: "diamonds", card: "J"},
+      {suit: "diamonds", card: "Q"},
+      {suit: "diamonds", card: "K"}
+    ]
+
+    class Deck {
+      constructor() {
+          this.cards = full_deck; //will hold card objects {suit: "spades", card: "A"}
+      }
+      deal() {
+        return this.cards.pop() //returns one card form the
+      }
+      shuffle() {
+        this.cards.sort(function(a, b){return 0.5 - Math.random()});
+        return this;
+      }
+      reset() {
+        this.cards = full_deck;
+
+      }
+    }
+
+    class Player {
+      constructor(name) {
+          this.name = name;
+          this.hand = []; //will hold card objects {suit: "spades", card: "A"}
+      }
+      takeCard(deck) {
+          this.hand.push(deck.deal()) //pushes the popped card from the deck
+          return this;
+      }
+      discard() {
+          return this.hand.pop();
+      }
+    }
+
+    player_list = ["Phil","Pang","Shane","Alanna","Brian","John","Trey","Jason","Rob","Anthony","Mike","Michael","Gabrielle","Marc","Brandon"]
+    players = [];
+
+    for (name in player_list){
+        players.push( new Player( player_list[name] ) );
+    }
+
+
+    const game_deck = new Deck();
+    game_deck.shuffle().shuffle().shuffle();
+
+    for ( x in players){
+      players[x].takeCard(game_deck).takeCard(game_deck);
+    }
+
+
+    for ( x in players){
+      console.log(players[x].name + "...");
+      console.log(players[x].hand);
+    }
+
+
+    // card = shane.discard()
+    // console.log( card.card.toString() + " of " +card.suit.toString()  );
+
+    console.log("Cards left : " + game_deck.cards.length);
+
+    for ( x in players){
+
+      var card1 = players[x].hand[0].suit[0] + players[x].hand[0].card.toLowerCase();
+      var card2 = players[x].hand[1].suit[0] + players[x].hand[1].card.toLowerCase();
+      var r1 = "transform: rotate(" + Math.floor((Math.random()*41)-20).toString() + "deg)";
+      var r2 = "transform: rotate(" + Math.floor((Math.random()*41)-20).toString() + "deg)";
+      // console.log(r1 +" & "+ r2);
+
+      var temp = '<div class="player_hand"><h2>'
+      + players[x].name
+      + '</h2>  <div class="card "'
+      + 'style="background: url(\'./cards-png/'+ card1 +'.png\');'+ r1 +'"  >'
+      + '</div> <div class="cover_card" style="' + r1 + '" ></div> <div class="card up" '
+      + 'style="background: url(\'./cards-png/'+ card2 +'.png\');'+ r2 +'"  ></div>'
+      document.getElementById('table').innerHTML += (temp);
+    }
+
+    // <div class="cover_card"></div>
+
+    </script>
+
+  </body>
+</html>

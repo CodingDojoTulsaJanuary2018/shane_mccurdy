@@ -1,0 +1,114 @@
+//  this is just the configuration code that we've already used
+
+- Emit: sends data from the server to the specific client who initiated contact.
+- Broadcast: sends data from the server to everyone BUT the client that initiated the contact.
+- Full Broadcast: sends data to all connected clients.
+
+io.sockets.on( 'connection', function (socket) {
+    //  EMIT:
+    socket.emit( 'my_emit_event');
+    //  BROADCAST:
+    socket.broadcast.emit( "my_broadcast_event");
+    //  FULL BROADCAST:
+    io.emit( "my_full_broadcast_event");
+})
+
+
+//----SAMPLE SERVER.JS------------------
+
+// Import express and path modules.
+var express = require( "express");
+var path = require( "path");
+// Create the express app.
+var app = express();
+// Define the static folder.
+app.use(express.static(path.join(__dirname, "./static")));
+// Setup ejs templating and define the views folder.
+app.set('views', path.join(__dirname, './views'));
+app.set('view engine', 'ejs');
+// Root route to render the index.ejs view.
+app.get('/', function(req, res) {
+ res.render("the_index");
+})
+// Start Node server listening on port 8000.
+// app.listen(8000, function() {
+//  console.log("listening on port 8000");
+// })
+
+const server = app.listen(8000, function() {
+ console.log("listening on port 8000");
+});
+const io = require('socket.io').listen(server);
+
+io.sockets.on('connection', function (socket) {
+  // all the server socket code goes in here...
+  console.log("Client/socket is connected!");
+  console.log("Client/socket id is: ", socket.id);
+
+  socket.on( "button_clicked", function (data){ //catches "socket.emit( 'button_clicked"...' from client
+      console.log( 'Someone clicked a button!  Reason: '  + data.reason);
+      socket.emit( 'server_response', {response:  "sockets are the best!"});
+  })
+
+  socket.on( "disconnect", function (){ // when this session/socket is disconnected -also refreshed pages
+      console.log( 'Someone disconnected! -- ' socket.id); // socket is the same object as the one calling .on
+      // there is nothing you get back from this event
+      // so take this opportunity to clear our any session data you may have stored
+
+  })
+})
+
+//----SAMPLE INDEX.EJS/HTML------------------
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Sockets</title>
+    <style media="screen">
+      .wrapper{
+        width: 400px;
+        margin: 50px auto;
+        font-family: verdana;
+        font-size: 2em;
+        text-align: center;
+      }
+      button{
+        font-size: 1em;
+        background: none;
+        padding: 20px;
+        border: thick black solid;
+        box-shadow: 0px 2px 5px #666;
+      }
+      button:hover{
+        position: relative;
+        top: -5px;
+        box-shadow: 0px 5px 10px #666;
+      }
+    </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type ="text/javascript">
+     $(document).ready(function (){
+        // this triggers the connection event in our server!
+        const socket  = io.connect();
+        // we'll write all the socket stuff after the above line!
+        $('button').click(function (){
+         socket.emit( "button_clicked", {reason:  "because I want to learn about sockets!"});
+        });
+        socket.on( 'server_response', function (data){
+           console.log( 'The server says: '  + data.response);
+           $('#stuff').append("<h3>"+ data.response +"</h3>");
+        });
+      }) //end document.ready
+    </script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>Sockets</h1>
+      <div id="stuff">
+        <button>I AM A BUTTON!</button>
+      </div>
+    </div>
+  </body>
+</html>

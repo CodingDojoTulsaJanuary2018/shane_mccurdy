@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Survey Form</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script>
+    $(document). ready(function (){
+       const socket  = io.connect();
+       $('#submit_button').click(function(e){
+         e.stopPropagation();
+         e.preventDefault();
+         dojo_form = {
+           "name": $("#name").val(),
+           "location": $("#location").val(),
+           "language": $("#language").val(),
+           "comment": $("#comment").val()
+         }
+        socket.emit( "posting_form", {formData: dojo_form} );
+        return false;
+       });
+       socket.on( 'updated_message', function(data){
+         // console.log(data);
+         var blurb = "You emitted the following information to the server: {name:'"+data.formData.name +"', location: '"+ data.formData.location +"', language: '"+ data.formData.language +"', comment: '"+ data.formData.comment +"'} <br><br> Your lucky number emmited by the server is "+ data.random_number+".";
+          $('#message_dump').html(blurb);
+          $('#message_dump').fadeIn();
+       });
+     })
+    </script>
+  </head>
+  <body>
+    <div class="wrapper green"id="message_dump" hidden></div>
+    <div class="wrapper">
+      <form class="" id="dojo_form" method="post">
+        <table>
+          <tr>
+            <td>Your Name:</td><td><input type="text" id="name" name="name" value=""> </td>
+          </tr>
+          <tr>
+            <td>Dojo Location:</td>
+            <td>
+              <select class="" id="location" name="location">
+                <option value="Mountain View" selected>Mountain View</option>
+                <option value="Dallas">Dallas</option>
+                <option value="Tulsa">Tulsa</option>
+            </select>
+          </td>
+          </tr>
+          <tr>
+            <td>Favorite Language:</td>
+            <td>
+              <select class="" id="language" name="language">
+                <option value="Javascript" selected>Javascript</option>
+                <option value="Python">Python</option>
+                <option value="Java">Java</option>
+            </select>
+          </td>
+          </tr>
+          <tr>
+            <td colspan="2"> Comment (optional):</td>
+          </tr>
+          <tr>
+            <td colspan="2"><textarea id="comment" name="comment" rows="8" cols="80" value=""></textarea></td>
+          </tr>
+          <tr>
+            <td colspan="2"> <button type="submit" id="submit_button" name="button">Submit</button> </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+
+  </body>
+</html>
