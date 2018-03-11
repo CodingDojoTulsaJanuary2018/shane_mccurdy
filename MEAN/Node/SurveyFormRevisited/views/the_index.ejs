@@ -12,7 +12,7 @@
        $('#submit_button').click(function(e){
          e.stopPropagation();
          e.preventDefault();
-         dojo_form = {
+         let dojo_form = {
            "name": $("#name").val(),
            "location": $("#location").val(),
            "language": $("#language").val(),
@@ -23,7 +23,7 @@
        });
        socket.on( 'updated_message', function(data){
          // console.log(data);
-         var blurb = "You emitted the following information to the server: {name:'"+data.formData.name +"', location: '"+ data.formData.location +"', language: '"+ data.formData.language +"', comment: '"+ data.formData.comment +"'} <br><br> Your lucky number emmited by the server is "+ data.random_number+".";
+         let blurb = "You emitted the following information to the server: {name:'"+data.formData.name +"', location: '"+ data.formData.location +"', language: '"+ data.formData.language +"', comment: '"+ data.formData.comment +"'} <br><br> Your lucky number emmited by the server is "+ data.random_number+".";
           $('#message_dump').html(blurb);
           $('#message_dump').fadeIn();
        });

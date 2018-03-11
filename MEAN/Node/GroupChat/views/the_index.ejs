@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>The great button game</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script>
+    $(document).ready(function (){
+      var this_username = "";
+      while (!this_username){
+        this_username = prompt("What's your username?");
+      }
+       const socket  = io.connect();
+       socket.emit("new_username", {new_username: this_username});
+
+       $('#send').click(function(e){
+         let this_message = $('#message').val();
+         socket.emit( "new_message", {message: this_message, username: this_username });
+       });
+       socket.on( 'update_board', function(data){
+         let pushMe = "";
+         for (x in data.board){
+           pushMe+=("<div class='post' ><div class='name' >"+ data.board[x].username+ " :</div><div class='msg' >"+ data.board[x].message +"</div></div>");
+         }
+         // console.log(pushMe);
+         $('#board').html(pushMe);
+       });
+     })
+    </script>
+  </head>
+  <body>
+
+    <div class="wrapper">
+      <div class="message_board">
+        <h1>Conversaton Board</h1>
+        <div id="board">
+
+        </div>
+      </div>
+
+      <input type="text" id="message" name="message" value="">
+      <button type="button" id="send" name="button">Send</button>
+    </div>
+  </body>
+</html>

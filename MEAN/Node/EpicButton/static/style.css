@@ -1,0 +1,46 @@
+.wrapper{
+  margin: 50px auto;
+  text-align: center;
+}
+body{
+  text-align: right;
+  font-family: verdana;
+}
+#big_butt{
+  font-size: 2em;
+  color: white;
+  background-color: blue;
+  padding: 50px;
+  border-radius: 30px;
+  border: thick solid black;
+  box-shadow: 3px 3px 20px #333;
+}
+#big_butt:hover{
+  box-shadow: 6px 6px 30px #333;
+  position: relative;
+  top: -3px;
+}
+#big_butt:active{
+  box-shadow: 3px 3px 20px #333;
+  position: relative;
+  top: 0px;
+}
+#reset{
+  border: thick solid black;
+  color: white;
+  background-color: red;
+  padding: 5px 20px;
+  font-size: 1.3em;
+  box-shadow: 3px 3px 10px #333;
+  margin-right: 30px;
+}
+#reset:hover{
+  box-shadow: 6px 6px 20px #333;
+  position: relative;
+  top: -3px;
+}
+#reset:active{
+  box-shadow: 3px 3px 10px #333;
+  position: relative;
+  top: 0px;
+}

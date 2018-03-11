@@ -1,0 +1,55 @@
+.wrapper{
+  margin: 50px auto;
+  text-align: center;
+}
+body{
+  font-family: verdana;
+}
+#board{
+  border: thick solid black;
+  width: 600px;
+  min-height: 500px;
+  margin: auto;
+}
+.post{
+  padding: 5px 0;
+  border-bottom: thin solid black;
+}
+.name{
+  width: 20%;
+  display: inline-block;
+  font-weight: bold;
+  text-align: right;
+  vertical-align: top;
+  padding: 0 10px 0 0;
+}
+.msg{
+  width: 75%;
+  display: inline-block;
+  text-align: left;
+}
+#message{
+  font-size: 1.7em;
+  border: thick solid black;
+  width: 485px;
+  margin: 30px auto;
+}
+#send{
+  border: thick solid black;
+  color: white;
+  position: relative;
+  top: -2px;
+  background-color: red;
+  padding: 5px 20px;
+  font-size: 1.3em;
+  margin: 0  0 5px 0;
+}
+#send:hover{
+  box-shadow: 3px 3px 5px #333;
+  position: relative;
+  top: -4px;
+}
+#send:active{
+  position: relative;
+  top: -2px;
+}
