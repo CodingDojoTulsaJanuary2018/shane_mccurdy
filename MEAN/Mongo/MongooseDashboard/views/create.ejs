@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Mongoose Dashboard</title>
+    <style media="screen">
+      .wrapper{
+        width: 600px;
+        margin: 50px auto;
+        font-family: verdana;
+        font-size: 1.3em;
+        text-align: center;
+      }
+      table{
+        border: thick solid black;
+        margin: auto;
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th, td:nth-child(odd){
+        color: white;
+        background: black;
+        padding: 5px 20px;
+      }
+      td:nth-child(even){
+        text-align: left;
+        text-indent: 20px;
+      }
+      input{
+        color: black;
+        background: white;
+        padding: 5px 20px;
+        font-family: verdana;
+        font-size: 1em;
+        width: 80%;
+        border: none;
+        border-bottom: dotted 3px black;
+      }
+      .button{
+        color: black;
+        background: white;
+        padding: 5px 20px;
+        font-family: verdana;
+        font-size: 1em;
+        border: black solid 4px;;
+        margin: 20px auto;
+        box-shadow: 5px 5px 0 black;
+      }
+      .button:hover{
+        background-color: #eee;
+      }
+      #white{
+        background-color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>Mongoose List</h1>
+      <table>
+        <form class="" action="/mongooses" method="post">
+          <tr>
+            <th colspan="2" >Create A New Mongoose</th>
+          </tr>
+          <tr>
+            <td>Name </td> <td> <input type="text" name="name" value="Slinky"> </td>
+          </tr>
+          <tr>
+            <td>Age </td><td> <input type="number" name="age" min="0" max="150" value="4"> </td>
+          </tr>
+          <tr>
+            <td colspan="2" id="white">
+              <button class="button" type="submit" name="button"> Create </button>
+            </td>
+          </tr>
+
+        </form>
+      </table>
+    </div>
+
+  </body>
+</html>

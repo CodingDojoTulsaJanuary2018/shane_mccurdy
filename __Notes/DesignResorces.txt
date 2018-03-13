@@ -1,0 +1,39 @@
+Extra Goodies
+Lorem Ipsums
+You've probably heard about Lorem Ipsum, the filler text of choice for many designers. Here are some untraditional Ipsums that might brighten your day. Feel free to pick and use whichever tickles your fancy!
+
+Real gibberish - http://randomtextgenerator.com/
+Online dating Ipsum - http://laurenhallden.com/datingipsum/
+A delicious Ipsum - http://cupcakeipsum.com/
+Beer Ipsum - http://breue.com/beer_ipsum
+Arrested Development Ipsum - http://bluthipsum.com/
+Futurama Ipsum - http://chrisvalleskey.com/fillerama/
+Hipster Ipsum - http://hipsteripsum.co/
+Bacon Ipsum - http://baconipsum.com/
+Samuel L. Ipsum - http://slipsum.com/ (NSFW)
+Gangsta Ipsum - http://lorizzle.nl/
+
+Images and Backgrounds
+Placeholder images for all your needs: http://lorempixel.com/
+Because the internet needs more cats: http://placekitten.com/
+Icon CSS Toolkit: https://fortawesome.github.io/Font-Awesome/
+Free hi-res images: http://unsplash.com/
+Backgrounds: http://subtlepatterns.com/
+Various freebies including icons: http://www.webdesignerdepot.com/category/freebies/
+Speaking of icons, you can use this site to generate CSS for sprite sheets: http://www.spritecow.com/
+Color Schemes
+Very flexible, very useful: http://colorschemedesigner.com/
+Ever think "Oh man, I love the colors in this photo!"? So have I: http://www.degraeve.com/color-palette/index.php
+Similar to above: http://www.cssdrive.com/imagepalette/
+Other Tools
+Cropper - Allows designer to measure pixels and crop images easily: http://cropper.codeplex.com/
+Just Color Picker - Free portable color picker/editor: http://annystudio.com/software/colorpicker/#jcp-download
+New Trends
+Take these with a grain of salt - remember that trends come and go but good design is forever!
+
+http://www.awwwards.com/6-web-design-trends-you-must-know-for-2015-2016.html
+
+Text to HTML
+This nifty tool will take your text files and add HTML markdown. Use it with caution and always double check the output!
+
+http://daringfireball.net/projects/markdown/

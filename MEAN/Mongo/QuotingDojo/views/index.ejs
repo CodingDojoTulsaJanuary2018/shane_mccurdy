@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>QuotingDojo</title>
+    <style media="screen">
+      .wrapper{
+        font-size: 2em;
+        font-family: monospace;
+        margin: 50px auto;
+        width: 800px;
+        text-align: center;
+      }
+      table{
+        width: 100%;
+      }
+      input, textarea{
+        font-size: 1em;
+        border: solid thick black;
+        width: 100%;
+        font-family: monospace;
+      }
+      td:nth-child(odd){
+        text-align: right;
+        vertical-align: top;
+      }
+      .center{
+        text-align: center;
+        align-items: center;
+      }
+      .butt {
+        text-decoration: none;
+        margin: 10px 50px;
+        font-family: monospace;
+        font-size: 1em;
+        color: black;
+        padding: 10px 20px;
+        border: solid thick black;
+        box-shadow: 5px 5px 0 black;
+        display: inline;
+      }
+      .butt:hover{
+        position: relative;
+        top: 5px;
+        box-shadow: 1px 0px 0 black;
+        background-color: #eee;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>Welcome to QuotingDojo</h1>
+      <form class="" action="/quotes" method="post">
+        <% if(typeof(errors) != 'undefined' ) { %>
+          <% for (var x in errors) { %>
+           <h3><%= errors[x].message %></h3>
+          <% } %>
+        <% } %>
+        <table>
+          <tr>
+            <td>Your name: </td><td> <input type="text" name="name" value="Professor Farnsworth"> </td>
+          </tr>
+          <tr>
+            <td>Your quote: </td><td> <textarea name="quote" rows="8" cols="20">Good news everyone!</textarea></td>
+          </tr>
+          <tr class="center">
+            <td class="center" colspan="2"> <button class="butt" type="submit" name="button">Add my quote!</button>
+            <a class="butt" href="/quotes">Skip to quotes!</a>
+            </td>
+          </tr>
+        </table>
+
+      </form>
+    </div>
+
+  </body>
+</html>

@@ -3,7 +3,7 @@ Create project folder
 > cd App
 > touch server.js
 > npm init -y
-> npm install express ejs express-session socket.io --save
+> npm install express ejs express-session mongoose body-parser socket.io --save
 
 // Import express and path modules // Define the static folder.
 // Setup ejs templating and define the views folder.

@@ -17,10 +17,10 @@ io.sockets.on( 'connection', function (socket) {
 //----SAMPLE SERVER.JS------------------
 
 // Import express and path modules.
-var express = require( "express");
-var path = require( "path");
+const express = require( "express");
+const path = require( "path");
 // Create the express app.
-var app = express();
+const app = express();
 // Define the static folder.
 app.use(express.static(path.join(__dirname, "./static")));
 // Setup ejs templating and define the views folder.

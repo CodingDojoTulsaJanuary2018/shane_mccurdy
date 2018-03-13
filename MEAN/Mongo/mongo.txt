@@ -1,0 +1,57 @@
+db.students.insert({"name": "Mia Leblanc","home_state": "AL","lucky_number": 11,"birthday": { month: 10, day: 08, year: 1980 }})
+
+db.students.insert({"name": "Unity R. Benton","home_state": "MI","lucky_number": 9,"birthday": { month: 11, day: 12, year: 1993 }})
+
+db.students.insert({"name": "Kaden V. Glass","home_state": "CA","lucky_number": 13,"birthday": { month: 08, day: 27, year: 2000 }})
+
+db.students.insert({"name": "Harper D. Jordan","home_state": "AK","lucky_number": 51,"birthday": { month: 10, day: 11, year: 1972 }})
+
+db.students.insert({"name": "Eagan D. Frye","home_state": "OK","lucky_number": 47,"birthday": { month: 04, day: 17, year: 1985 }})
+
+db.students.insert({name: "Tiger Preston", home_state: "NE", lucky_number: 30, birthday: { month: 07, day: 22, year: 1999 }})
+
+db.students.updateMany({},{$set: {interests: ["coding","brunch","MongoDB"] }})
+
+db.students.update({name: /Mia/},{$push: {interests: "necromancy" }})
+
+db.students.update({name: /Law/},{$push: {interests: "taxes"}})
+db.students.update({name: /Law/},{$pull: {interests: "taxes"}})
+
+db.students.updateMany({},{$set:{number_of_belts: 0}})
+
+db.students.updateMany({home_state:"OK"},{$inc:{number_of_belts: 1 }})
+
+db.students.updateMany({},{$rename:{number_of_belts:"belts_earned"}})
+
+db.students.updateMany({},{$currentDate:{updated_on:{$type:"date"}}})
+
+db.students.find().pretty()
+
+db.students.remove({home_state: "CA"}, true)
+
+db.students.remove({name:/Mikayla/})
+
+db.students.deleteOne({lucky_number: {$gt: 5}})
+
+db.students.updateMany({},{$unset:{lucky_number:""}})
+
+db.students.insertMany([
+{
+"name": "Lawrence Y. Britt",
+"home_state": "HG",
+"lucky_number": 56,
+"birthday": { month: 02, day: 21, year: 2018 }
+},
+{
+"name": "Mikayla Frank",
+"home_state": "OI",
+"lucky_number": 44,
+"birthday": { month: 09, day: 03, year: 2017 }
+},
+{
+"name": "Salvador Charles",
+"home_state": "WW",
+"lucky_number": 54,
+"birthday": { month: 05, day: 31, year: 2018 }
+}
+])

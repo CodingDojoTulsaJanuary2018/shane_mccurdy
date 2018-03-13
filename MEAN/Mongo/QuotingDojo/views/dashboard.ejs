@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>QuotingDojo</title>
+    <style media="screen">
+      .wrapper{
+        font-size: 1.6em;
+        font-family: monospace;
+        margin: 50px auto;
+        width: 800px;
+        text-align: center;
+      }
+      #board{
+        padding: 30px 0;
+      }
+      .quote_card{
+        padding: 30px 20px 10px;
+        border-bottom: thick solid black;
+      }
+      .quote{
+        text-align: left;
+        font-size: 1.3em;
+        font-weight: bold;
+        padding: 20px 0px;
+      }
+      .quote_tag{
+        text-align: center;
+        align-items: center;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>Here are some awesome quotes!</h1>
+      <% if(typeof(errors) != 'undefined' ) { %>
+        <% for (let x in errors) { %>
+         <h3><%= errors[x].message %></h3>
+        <% } %>
+      <% } %>
+      <div id="board">
+
+          <% if(quotes.length != 0 ){ %>
+            <% for(let num in quotes){ %>
+              <div class="quote_card">
+                <div class="quote"> <%= quotes[num].quote %> </div>
+                <div class="quote_tag"> - <%= quotes[num].name %> <%=quotes[num].createdAt %> </div>
+              </div>
+            <% } %>
+          <% } %>
+      </div>
+
+    </div>
+
+  </body>
+</html>
