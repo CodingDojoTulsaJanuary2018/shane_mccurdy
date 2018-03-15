@@ -82,7 +82,20 @@
       </div>
     </div>
   </div>
+ <script type="text/javascript">
 
+ function fibo(num, x=0, y=1){
+   if (num == 0){return x}
+   else { return fibo(--num, y, (x+y)) }
+ }
+
+ console.log(fibo(0));
+ console.log(fibo(1));
+ console.log(fibo(7));
+ console.log(fibo(8));
+
+
+ </script>
 
 
 
