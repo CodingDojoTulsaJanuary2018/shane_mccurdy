@@ -1,0 +1,20 @@
+p{
+    font-size: 5em;
+    font-family: helvetica;
+    font-weight: bold;
+    color: #444;
+}
+h2{
+    font-size: 2em;
+    margin: 0 auto;
+}
+h3 {
+    font-size: 0.3em;
+    color: #999;
+    display: inline;
+    text-align: center
+}
+img{
+    width: 104%;
+    margin:  0 0 -2% -2%;
+}
