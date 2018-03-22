@@ -1,0 +1,25 @@
+.wrapper{
+    font-family: Helvetica;
+}
+table{
+    border: 3px #999 solid;
+}
+button{
+    background-color: #999;
+    color: white;
+}
+.edit:hover{
+    background-color: darkorange;
+}
+.delete:hover{
+    background-color: darkred;
+}
+.add{
+    margin: 20px 0;
+}
+.add:hover{
+    background-color: darkgreen;
+}
+.quotes:hover{
+    background-color: darkslateblue;
+}

@@ -1,0 +1,37 @@
+.wrapper{
+    font-family: Helvetica;
+}
+table{
+    border: 3px #999 solid;
+}
+th{
+    min-width: 125px;
+}
+.center{
+    text-align: center;
+}
+q{
+    color: #666;
+    font-style: italic;
+    text-indent: 10px;
+    padding-left: 5px;
+}
+button{
+    background-color: #999;
+    color: white;
+}
+.down:hover{
+    background-color: darkorange;
+}
+.delete:hover{
+    background-color: darkred;
+}
+.add{
+    margin: 20px 0;
+}
+.up:hover, .add:hover{
+    background-color: darkgreen;
+}
+.quotes:hover, .home:hover{
+    background-color: darkslateblue;
+}

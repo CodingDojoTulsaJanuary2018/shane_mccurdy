@@ -1,23 +1,47 @@
 Create project folder
-> mkdir App
-> cd App
-> touch server.js
+> mkdir <appFolder>
+> cd <appFolder>
+> ng new <newApp> (--routing) <---optional
+
+> touch server.js //touch app.js
 > npm init -y
-> npm install express body-parser path --save
-//  options:  ejs express-session socket.io mongoose
-    >>> -OR- npm install //if you are installing from another package.json
+> npm install --save express
+//  options:  ejs express-session socket.io mongoose (body-parser path)
+    >>> -OR- npm install //if you are installing from another package.json i.e. deploying
 
-> npm install --save-dev @angular/cli@latest
+> sudo npm install -g @angular/cli
+X skip X> sudo npm install --save-dev @angular/cli@latest 
+> sudo npm install -g node-gyp
 
-Creating a New App
-* navigate to the folder directory in a new terminal*
-> ng new <newApp>
- -OR- >>> ng new <newApp> --routing // if you want to use <router-outlet>
+      Creating a New App
+        * navigate to the folder directory in a new terminal*
+        > ng new <newApp>   // ng new public --routing
+        -OR- >>> ng new <newApp> --routing // if you want to use <router-outlet>
+
 * navigate this new app's directory in a new terminal*
 > cd <newApp>
 > ng build --watch
 
-// Import express and path modules // Define the static folder.
+//+++++++++++++++++++++ Mongo +++++++++++++++++++++
+      *in a new terminal 
+      //if new mongo install
+      > cd /   //to root level
+      > sudo mkdir data
+      > cd data
+      > sudo mkdir db
+      * to start
+      > sudo mongod
+      * to stop
+      > CTRL + C
+
+      ** If mongo terminal gets closed while running, 
+      ** it will run in the background. To stop...
+      ** ...open a new terminal
+      > ps -ax | grep mongo
+      > sudo kill *mongo_process_id_number*
+//+++++++++++++++++++++++++++++++++++++++++++++++++
+
+// Import express and path modules 
 // Setup ejs templating and define the views folder.
 
 const express = require( "express");
@@ -27,11 +51,17 @@ const app = express();
 // if using Angular
 app.use(express.static( __dirname + '/<newApp>/dist' ));
 
+// if using Angular with --routing, also include this catch-all route
+app.all("*", (req,res,next) => {
+  res.sendFile(path.resolve("./<newApp>/dist/index.html"))
+});
 
-// if using static files and ejs
-app.use(express.static(path.join(__dirname, "./static")));
-app.set('views', path.join(__dirname, './views'));
-app.set('view engine', 'ejs');
+
+    // if using static files and ejs
+    // Define the static folder first then join
+    app.use(express.static(path.join(__dirname, "./static")));
+    app.set('views', path.join(__dirname, './views'));
+    app.set('view engine', 'ejs');
 
 
 // Start Node server listening on port 8000.
@@ -47,6 +77,8 @@ var io = require('socket.io').listen(server);
 //----------- if using Mongo via Mongoose
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
+*** If using URL encoded POST data***
+app.use(bodyParser.urlencoded({extended: true}));
 
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/RestfulTaskAPI');
@@ -59,10 +91,10 @@ var TaskSchema = new mongoose.Schema({
 }, {timestamps: true})
 
 mongoose.model('Task', TaskSchema);
-var Task = mongoose.model('Task');
+const Task = mongoose.model('Task');
 
 
-// ------------- RESTful routes in Express to CRUD Mongo via Mongoose
+// ------------- RESTful routes in Express to CRUD Mongo via Mongoose : server.js file
 
 
 app.get('/tasks', function(req, res) { // will serve up the full collection
@@ -92,13 +124,13 @@ app.post('/tasks', function(req, res) { // will add into the database
 })
 
 app.get('/tasks/:id', function(req, res) { //Displays information about one
-  console.log("tried by name --- ", req.params.id);
+  console.log("tried by id --- ", req.params.id);
   Task.findOne({_id: req.params.id}, function(err, this_task) {
     if(err) {
       console.log('something went wrong : 58');
       res.json({errors: err.errors});
     } else {
-      console.log('sending one by name --- ', this_task );
+      console.log('sending one by id --- ', this_task );
       res.json({this_task});
     }
   })// end .findOne
@@ -126,7 +158,7 @@ app.put('/tasks/:id', function(req, res) { // will update the database.
 
 app.delete('/tasks/:id', function(req, res) { // will delete from the database.
   console.log("delete order sent --- ", req.params.id);
-  Task.remove( {_id: req.params.id}, function(err, data) {
+  Task.deleteOne( {_id: req.params.id}, function(err, data) {  //also .remove() works
     if(err) {
       console.log('something went wrong : 88');
       res.json({errors: err.errors});
@@ -136,3 +168,217 @@ app.delete('/tasks/:id', function(req, res) { // will delete from the database.
     }
   }) //end .remove
 })
+
+
+
+// ------------- Angular buildouts ---------------
+
+// assuming these steps are done from above...
+|    > npm install --save-dev @angular/cli@latest
+|
+|    Creating a New App
+|    * navigate to the folder directory in a new terminal*
+|    > ng new <newApp>
+|     -OR-  ---> ng new <newApp> --routing // if you want to use <router-outlet>
+|    * navigate this new app's directory in a new terminal*
+|    > cd <newApp>
+|    > ng build --watch
+
+
+// from within <newApp> in a new (probably 3rd) terminal window
+> npm g s <name> // like "http" for a service
+> npm g c <subcomponent> // like "tulsa" or "seattle" for a component
+
+
+// .../app/app.MODULE.ts
+    
+    import { BrowserModule } from '@angular/platform-browser';  // default
+    import { NgModule } from '@angular/core';                   // default
+    import { AppComponent } from './app.component';             // default
+
+    import { HttpService } from './http.service'; //<-- generated service
+    import { HttpClientModule } from '@angular/common/http'; //<-- needed for http
+
+    import { FormsModule } from '@angular/forms'; //<-- for two-way binding
+
+    import { AppRoutingModule } from './app-routing.module'; //<-- created with the --routing <router-outlet>
+    import { TulsaComponent } from './tulsa/tulsa.component'; //<-- router-outlet <sub>.component
+    import { SeattleComponent } from './seattle/seattle.component'; //<--   ^-etc..
+    ...
+    @NgModule({
+      declarations: [
+        AppComponent,
+        TulsaComponent,   <-- <sub>components
+        SeattleComponent, <-- etc..
+      ...
+      imports: [
+          BrowserModule,
+          FormsModule,      <--- two-way binding
+          HttpClientModule, <---
+          AppRoutingModule  <---
+      ],
+      ...
+      providers: [HttpService], <---
+      ...
+    })
+
+
+//.../app/HTTP.SERVICE.ts
+    import { Injectable } from '@angular/core';
+    import { HttpClient } from '@angular/common/http'; //<--
+    
+    const API_ = "http://api.openweathermap.org/data/2.5/weather?q=";
+    const _API = "&units=imperial&APPID=55542229da06d2a5064eb3596874c2c3";
+    ...
+    export class HttpService {
+      constructor( private _http: HttpClient ){}
+                // ^^^^^^^^^^^^^^^^^^^^^^^^^----add
+      getTasks(){
+        return this._http.get('/tasks');
+      }
+      createTask(newTask){
+        return this._http.post('/tasks',  {"title": newTask.title, "description": newTask.description});
+      }
+      updateOneTask(thisTask){
+        return this._http.put('/tasks/' + thisTask._id, {"title": thisTask.title, "description": thisTask.description});
+      }
+      getWeatherAPI( location ){
+        return this._http.get(API_+location+_API);
+      }
+    }
+
+
+//.../app/app.component.TS (controller or class file)
+    import { Component, OnInit } from '@angular/core'; //<-- OnInit
+    import { HttpService } from './http.service'; //<-- the generated service
+    import { ActivatedRoute, Params, Router } from '@angular/router'; //<-- Router stuff
+    ...
+    export class AppComponent implements OnInit { //<-- Onint 
+        tasks : any;
+        newTask = {     //for two-way binding
+          title : "",
+          description : ""
+        }
+
+      constructor(private _httpService: HttpService){} //<-- "injection"
+      constructor(            // or with router and http injection
+        private _httpService: HttpService,
+        private _route: ActivatedRoute,
+        private _router: Router
+      ){}
+    }
+    ngOnInit(){
+      this._route.params.subscribe((params: Params) => console.log(params['id'])); //router
+      this.tasks = false;   //use in html template with *ngIf="tasks"
+      // this.getTasksFromService();
+    }
+    goHome() {
+      this._router.navigate(['/']); //home with router
+    }
+    getWeather(location){
+      let getBack = this._httpService.getWeatherAPI(location);
+      getBack.subscribe(data =>{
+        console.log("DATA ---- ", data);
+      })
+    }
+    getTasksFromService(){
+      let observable = this._httpService.getTasks();
+      observable.subscribe(data => {
+        console.log("Got our data!", data);
+        this.tasks = data['all_tasks'];
+      })
+    }
+    createTaskFromService(){
+      let observable = this._httpService.createOneTask(this.newTask);
+        observable.subscribe(data => {
+          console.log("Got our data!", data);
+          this.getTasksFromService(); //refresh task list
+          this.newTask = {
+            title : "",
+            description : ""
+          }
+        })
+    }
+
+
+// ...app-ROUTING.module.ts (auto generated by --routing)
+    import { TulsaComponent } from './tulsa/tulsa.component';
+    import { SeattleComponent } from './seattle/seattle.component';
+    ...
+    // import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component'; //???
+    import { NgModule } from '@angular/core';
+    import { Routes, RouterModule } from '@angular/router';
+    
+    const routes: Routes = [
+      { path: 'tulsa',component: TulsaComponent },
+      { path: 'seatle',component: SeattleComponent },
+      ...
+      // example of how to use a colon and parameter name to include a parameter in the url
+      //{ path: 'gamma/:id', component: GammaComponent },
+      { path: '', pathMatch: 'full', redirectTo: '/tulsa' }, //have a default route or redirect
+      //{ path: '**', component: PageNotFoundComponent } //???
+    ];
+    @NgModule({
+      imports: [RouterModule.forRoot(routes)],
+      exports: [RouterModule]
+    })
+    export class AppRoutingModule { }
+
+
+
+// example ...app/app.component.HTML
+    <div  class="wrapper">
+      <h1>Welcome to Dojo Weather</h1>
+      <button [routerLink]="['tulsa']">Tulsa</button> //subcomponent router links
+      <button [routerLink]="['seatle']">Seatle</button>
+      ...
+      <router-outlet></router-outlet>
+    </div>
+    <button (click)="getTasksFromService()" >[GET ALL TASKS]</button>
+    ...
+    <span *ngIf="tasks">
+      <div *ngFor="let task of tasks">
+        ...
+      </div>
+    <span>
+
+    <img [src]="varNameHere" />
+    <h3>Value of num is: {{num}}</h3>
+    <h3>Value of randNum is: {{randNum}}</h3>
+    <h3>{{str}}</h3>
+    <input type="text" [value]="first_name" />
+    <p *ngIf="loggedIn">You are logged in!</p>
+    <p *ngFor="let snack of snacks">{{snack}}</p>
+    <p *ngIf="snacks.length < 3">You need more snacks.</p>
+
+    <button (click)="onButtonClick()" >Click me!</button>
+    <button (click)="onButtonClickParam(5)">Click me!</button>
+    <button (click)="onButtonClickParams(5, 'hello')">Click me!</button>
+    <button (click)="onButtonClickEvent($event)">Click me!</button>
+        //corresponing .TS functions 
+              onButtonClick(): void { 
+                  console.log(`Click event is working`);
+              }
+              onButtonClickParam(num: Number): void { 
+                  console.log(`Click event is working with num param: ${num}`);
+              }
+              onButtonClickParams(num: Number, str: String): void { 
+                  console.log(`Click event is working with num param: ${num} and str param: ${str}`);
+              }
+              onButtonClickEvent(event: any): void { 
+                  console.log(`Click event is working with event: `, event);
+              }
+
+// -------- two-way binding in HTML
+    <form (submit)="createTaskFromService()">
+      <label for="newTask.title">Tiltle :</label><input name="newTask.title" type="text" [(ngModel)]="newTask.title" ><br>
+      <label for="newTask.description">Description :</label><input name="newTask.description" type="text" [(ngModel)]="newTask.description" ><br>
+      <button type="submit" >[ADD NEW TASK]</button>
+    </form>
+
+    <form id="update" *ngIf="updateTask.show" (submit)="updateTaskFromService()" class="dash">
+      <label for="updateTask.title">Tiltle : </label><input name="updateTask.title" type="text" [(ngModel)]="updateTask.title" value="{{updateTask.title}}" focus><br>
+      <label for="updateTask.description">Description : </label><input name="updateTask.description" type="text" [(ngModel)]="updateTask.description" value="{{updateTask.description}}" ><br>
+      <input type="hidden" name="updateTask._id" value="{{updateTask._id}}">
+      <button type="submit" >[UPDATE TASK]</button><button type="button" (click)="cancelEdit()" >[CANCEL]</button>
+    </form>

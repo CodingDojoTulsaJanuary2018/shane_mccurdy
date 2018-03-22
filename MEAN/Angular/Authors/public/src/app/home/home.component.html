@@ -1,0 +1,16 @@
+<div *ngIf="authors" class="wrapper">
+  <button class="add" (click)="goToAdd()">ADD AUTHOR</button>
+  <table>
+    <tr>
+      <th>Author</th><th>Actions</th>
+    </tr>
+    <tr *ngFor="let author of authors.all_authors">
+      <td>{{author.name}}</td>
+      <td>
+        <button class="quotes" (click)="goToQuotes(author._id)">VIEW QUOTES</button>
+        <button class="edit" (click)="goToEdit(author._id)">EDIT</button>
+        <button class="delete" (click)="deleteAuthor(author._id)">DELETE</button>
+      </td>
+    </tr>
+  </table>
+</div>

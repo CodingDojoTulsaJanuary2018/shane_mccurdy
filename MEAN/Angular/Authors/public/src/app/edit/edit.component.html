@@ -1,0 +1,9 @@
+<div class="wrapper">
+    <form (submit)="updateAuthor()">
+      <label for="name">Author name:</label>
+      <input type="text" name="author.name" [(ngModel)]="author.name" ><br><br>
+      <button type="submit">SUBMIT</button><button type="button" class="cancel" (click)="goToHome()" >CANCEL</button>
+    </form>
+    <br>
+    <b>{{form.placeholder}}</b>
+  </div>

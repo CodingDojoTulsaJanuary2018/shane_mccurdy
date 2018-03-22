@@ -1,0 +1,16 @@
+<h1>Ledger Transaction Details</h1>
+<div *ngIf="theTrans != false; else nope">
+  <p class="blurb">
+    Detailed view of the transaction form the ledger.
+  </p>
+  <p class="blurb">
+    Transaction <b>#{{theTrans.ledger.id}}</b><br>
+    Transaction ID <b>{{theTrans.ledger.transID}}</b><br>
+    <b>{{theTrans.ledger.action}}</b> <b>{{theTrans.ledger.amount}}</b> ShintoCoins At <b>${{theTrans.ledger.value}}.00</b>
+  </p>
+</div>
+<ng-template #nope>
+  <p class="blurb">
+    <b>Looks like there are no transactions yet. You can buy some ShintoCoins or try mining new ones!</b>
+  </p>
+<ng-template>

@@ -16,22 +16,19 @@ export class AppComponent implements OnInit {
     private _router: Router
   ){}
 
-ngOnInit(){
-  this._route.params.subscribe((params: Params) => console.log(params['id']));
-}
-goHome() {
-  this._router.navigate(['/']); //home
-}
+  ngOnInit(){
+    this._route.params.subscribe((params: Params) => console.log(params['id']));
+  }
+  goHome() {
+    this._router.navigate(['/']); //home
+  }
 
 
-getWeather(location){
-  let getBack = this._httpService.getWeatherAPI(location);
-  getBack.subscribe(data =>{
-    console.log("DATA ---- ", data);
-  })
-}
-
-
-
+  getWeather(location){
+    let getBack = this._httpService.getWeatherAPI(location);
+    getBack.subscribe(data =>{
+      console.log("DATA ---- ", data);
+    })
+  }
 
 }

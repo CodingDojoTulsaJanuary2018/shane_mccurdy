@@ -1,0 +1,43 @@
+app-root{
+    font-family: Helvetica;
+    text-align: center;
+}
+#logo{
+    margin: 0 20px 0 0;
+}
+.header{
+    margin: 0 auto;
+    padding: 30px;
+    vertical-align: top;
+    width: 850px;
+}
+.header button{
+    position: relative;
+    top: -45px;
+}
+button{
+    font-size: 1em;
+    min-width: 125px;
+    padding: 5px 20px;
+    border: none;
+    background-color: #eee;
+    border-radius: 5px;
+}
+button:hover{
+    background-color: #f79803;
+}
+#routeroutlet{
+    width: 750px;
+    min-height: 300px;
+    margin:  0 auto 30px;
+    /* border: thin #ddd solid; */
+    font-family: Helvetica;
+}
+#dollar{
+    color: #f79803;
+    position: relative;
+    font-size: 74px;
+    font-family: fantasy;
+    left: 58px;
+    top: -9px;
+}

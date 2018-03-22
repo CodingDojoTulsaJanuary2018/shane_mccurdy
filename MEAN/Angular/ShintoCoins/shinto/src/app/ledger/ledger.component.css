@@ -1,0 +1,30 @@
+.blurb{
+    font-size: 1.5em;
+}
+button{
+    font-size: 1em;
+    min-width: 125px;
+    padding: 5px 20px;
+    border: none;
+    background-color: #eee;
+    border-radius: 5px;
+}
+button:hover{
+    background-color: #f79803;
+}
+input{
+    font-size: 1em;
+}
+.tablehead{
+    font-weight: normal;
+    background-color: #eee;
+    width: 350px;
+}
+table button{
+    padding: 5px;
+    min-width: 0;
+    font-size: 0.8em;
+}
+table{
+    text-align: center;
+}

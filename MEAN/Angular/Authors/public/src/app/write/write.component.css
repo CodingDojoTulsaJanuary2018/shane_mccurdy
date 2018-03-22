@@ -1,0 +1,17 @@
+.wrapper, input{
+    font-family: Helvetica;
+    font-size: 1em;
+}
+button{
+    background-color: #999;
+    color: white;
+}
+button:hover{
+    background-color: darkgreen;
+}
+.cancel:hover{
+    background-color: darkorange;
+}
+b{
+    color: darkred;
+}

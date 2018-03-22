@@ -1,0 +1,20 @@
+<div *ngIf="author" class="wrapper">
+    <button class="home" (click)="goToHome()">HOME</button>  
+    <button class="add" (click)="goToWrite()">ADD QUOTE</button>
+    <h2>Quotes by {{author.name}}</h2>
+    <table>
+      <tr>
+        <th>Quote</th><th>Votes</th><th>Actions</th>
+      </tr>
+      <tr *ngFor="let aquote of author.quotes">
+        <!-- info : {{aquote | json}} -->
+        <td> <q>{{aquote.quote}}</q> </td>
+        <td class="center" >{{aquote.rank}}</td>
+        <td>
+          <button class="up" (click)="voteUp(aquote._id)">VOTE UP</button>
+          <button class="down" (click)="voteDown(aquote._id)">VOTE DOWN</button>
+          <button class="delete" (click)="deleteQuote(aquote._id)">DELETE</button>
+        </td>
+      </tr>
+    </table>
+  </div>

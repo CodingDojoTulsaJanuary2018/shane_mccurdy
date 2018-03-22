@@ -1,0 +1,10 @@
+<div class="wrapper">
+    <form (submit)="writeQuote()">
+      <label for="name">Quote:</label>
+      <input type="text" name="author.quote" [(ngModel)]="author.quote" ><br><br>
+      <button type="submit">SUBMIT</button><button type="button" class="cancel" (click)="goToQuotes()" >CANCEL</button>
+    </form>
+    <br>
+    <b>{{form.placeholder}}</b>
+  </div>
+  

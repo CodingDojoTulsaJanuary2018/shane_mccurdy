@@ -1,0 +1,116 @@
+...once in AWS instance use "exit" to quit/disconnect
+...use "sudo su" to get to root and usr "CTRL + D" to exit root mode
+
+sudo apt-get update
+sudo apt-get install -y build-essential openssl libssl-dev pkg-config
+
+sudo apt-get install -y nodejs nodejs-legacy
+
+sudo apt-get install npm
+sudo npm cache clean -f
+(The cache clean -f, forcibly cleans the cache.  This will give an interesting comment:))
+
+sudo npm install -g n
+sudo n stable (or whichever node version you want e.g. 5.9.0)
+    ...sudo npm update
+
+sudo apt-get install nginx
+sudo apt-get install git
+
+Try..
+cd /var/www
+
+If it's not there for some reason, make it anyway...
+    sudo mkdir /var/www
+
+
+sudo git clone {{your project file path on github/bitbucket}}
+
+
+At this point, you should be able to change directories into your project and run your server. 
+It will most likely fail, because of not having mongod up and running and not having a dist folder, 
+but running the project should be as simple as node server.js or a similar command like npm start.
+Install the Angular CLI, navigate to your Angular project, and run ng build.
+
+
+cd {{project_name}}
+
+>>> sudo npm install -g @angular/cli
+>>> sudo npm install --save-dev @angular/cli@latest 
+>>> sudo npm install -g node-gyp
+
+    If these fail in with looped waring of---> gyp WARN EACCES user "root" does not have permission to access the dev dir "/var/www/mean_deploy/my-app/node_modules/node-sass/.node-gyp/9.8.0"
+        sudo su (CTRL + D to Exit sudo root mode)
+        cd node_modules/@angular
+        chmod a+rwx cli/ -R
+        cd ..
+        cd ..
+        ...and try them again
+
+        >>> sudo npm install -g @angular/cli
+        >>> sudo npm install --save-dev @angular/cli@latest 
+        >>> sudo npm install -g node-gyp
+
+cd {{Angular-app}}
+npm install
+ng build
+
+cd /etc/nginx/sites-available
+
+sudo vim {{project_name}}
+
+server {
+    listen 80;
+    location / {
+        proxy_pass http://{{PRIVATE-IP}}:{{NODE-PROJECT-PORT}};
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+
+
+sudo rm default
+
+sudo ln -s /etc/nginx/sites-available/{{project_name}} /etc/nginx/sites-enabled/{{project_name}}
+
+cd /etc/nginx/sites-enabled/
+sudo rm default
+
+sudo npm install pm2 -g
+
+
+cd /var/www/{{project_name}}
+pm2 start server.js
+pm2 stop 0
+pm2 restart 0
+sudo service nginx reload && sudo service nginx restart
+
+
+sudo npm install
+
+
+sudo npm install bower -g
+sudo bower install --allow-root
+
+echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
+
+sudo apt-get update
+
+sudo apt-get install -y mongodb-org
+-or-
+sudo apt-get install -y mongodb (if the above doesn't work)
+
+sudo service mongod start
+
+sudo mongod
+
+pm2 stop 0
+pm2 restart 0
+sudo service nginx reload && sudo service nginx restart
+
+
+
+
