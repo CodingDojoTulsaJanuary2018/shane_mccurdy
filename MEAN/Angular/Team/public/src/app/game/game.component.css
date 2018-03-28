@@ -1,0 +1,27 @@
+.undecided{
+    background-color: darkgoldenrod;
+    color: white;    
+}
+.playing{
+    background-color: darkgreen;
+    color: white;  
+}
+.notplaying{
+    background-color: darkred;
+    color: white;  
+}
+th{
+    text-align: left;
+    padding: 8px;
+    text-indent: 8px;
+}
+td{
+    padding: 0 8px;
+}
+table{
+    background-color: #fff;
+    box-shadow: 3px 3px 10px #bbb;
+    border-radius: 5px;
+    width: 100%;
+    padding: 10px;
+}

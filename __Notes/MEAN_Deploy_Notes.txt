@@ -15,7 +15,7 @@ sudo n stable (or whichever node version you want e.g. 5.9.0)
     ...sudo npm update
 
 sudo apt-get install nginx
-sudo apt-get install git
+
 
 Try..
 cd /var/www
@@ -35,9 +35,11 @@ Install the Angular CLI, navigate to your Angular project, and run ng build.
 
 cd {{project_name}}
 
->>> sudo npm install -g @angular/cli
->>> sudo npm install --save-dev @angular/cli@latest 
 >>> sudo npm install -g node-gyp
+>>> sudo npm install -g @angular/cli --unsafe-perm=true --allow-root
+>>> sudo npm install --save-dev @angular/cli@latest
+>>> sudo npm install -g node-gyp
+
 
     If these fail in with looped waring of---> gyp WARN EACCES user "root" does not have permission to access the dev dir "/var/www/mean_deploy/my-app/node_modules/node-sass/.node-gyp/9.8.0"
         sudo su (CTRL + D to Exit sudo root mode)
@@ -47,12 +49,13 @@ cd {{project_name}}
         cd ..
         ...and try them again
 
-        >>> sudo npm install -g @angular/cli
-        >>> sudo npm install --save-dev @angular/cli@latest 
         >>> sudo npm install -g node-gyp
-
+        >>> sudo npm install -g @angular/cli
+        >>> sudo npm install --save-dev @angular/cli@latest
+        >>> sudo npm install -g node-gyp 
+        
 cd {{Angular-app}}
-npm install
+sudo npm install
 ng build
 
 cd /etc/nginx/sites-available
@@ -75,6 +78,7 @@ server {
 sudo rm default
 
 sudo ln -s /etc/nginx/sites-available/{{project_name}} /etc/nginx/sites-enabled/{{project_name}}
+sudo ln -s /etc/nginx/sites-available//etc/nginx/sites-enabled/ /etc/nginx/sites-enabled/
 
 cd /etc/nginx/sites-enabled/
 sudo rm default

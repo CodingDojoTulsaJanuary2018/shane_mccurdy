@@ -1,0 +1,14 @@
+th{
+    padding: 0 8px;
+    text-align: left;
+}
+table{
+    background-color: #fff;
+    box-shadow: 3px 3px 10px #bbb;
+    border-radius: 5px;
+    width: 100%;
+    padding: 10px;
+}
+.feedback{
+    color: darkred;
+}

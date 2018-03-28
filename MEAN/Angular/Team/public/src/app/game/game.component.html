@@ -1,0 +1,43 @@
+<h3>GAME ROSTER</h3>
+<table *ngIf="all_players">
+    <tr>
+      <th>Player Name</th>
+      <th>Actions</th>
+    </tr>
+    <tr *ngFor="let player of all_players">
+      <td>{{player.player_name}}</td>
+      <td *ngIf="player.player_status == 1" >
+        <button class="playing" (click)="setPlaying(player.player_id)" >
+          Playing
+        </button>
+        <button (click)="setUndecided(player.player_id)" >
+          Undecided
+        </button>
+        <button (click)="setNotPlaying(player.player_id)" >
+          Not Playing
+        </button>
+      </td>
+      <td *ngIf="player.player_status == 0" >
+        <button  (click)="setPlaying(player.player_id)" >
+          Playing
+        </button>
+        <button class="undecided" (click)="setUndecided(player.player_id)" >
+          Undecided
+        </button>
+        <button (click)="setNotPlaying(player.player_id)" >
+          Not Playing
+        </button>
+      </td>
+      <td *ngIf="player.player_status == -1" >
+        <button  (click)="setPlaying(player.player_id)" >
+          Playing
+        </button>
+        <button (click)="setUndecided(player.player_id)" >
+          Undecided
+        </button>
+        <button class="notplaying" (click)="setNotPlaying(player.player_id)" >
+          Not Playing
+        </button>
+      </td>        
+    </tr>
+  </table>

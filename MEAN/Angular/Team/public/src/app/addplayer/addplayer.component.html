@@ -1,0 +1,33 @@
+<table>
+  <form (submit)="addPlayer()">
+    <tr>
+      <th colspan="2">
+        Add A New Player
+      </th>
+    </tr>
+    <tr>
+      <td>
+        Player Name:
+      </td>
+      <td>
+        <input type="text" name="new_player_info.name" [(ngModel)]="new_player_info.name" value="{{new_player_info.name}}" >
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Preferred Position:
+      </td>
+      <td>
+        <input type="text" name="new_player_info.position" [(ngModel)]="new_player_info.position" value="{{new_player_info.position}}"  >
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <button [disabled]="new_player_info.name.length < 2" type="submit"> ADD </button>
+      </td>
+    </tr>
+    <tr *ngFor="let x of feedback">
+      <td colspan="2" class="feedback" >{{x}}</td>
+    </tr>
+  </form>
+</table>

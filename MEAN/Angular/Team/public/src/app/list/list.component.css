@@ -1,0 +1,11 @@
+th{
+    text-align: left;
+    padding: 8px;
+}
+table{
+    background-color: #fff;
+    box-shadow: 3px 3px 10px #bbb;
+    border-radius: 5px;
+    width: 100%;
+    padding: 10px;
+}
