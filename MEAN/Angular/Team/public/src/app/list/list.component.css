@@ -9,3 +9,18 @@ table{
     width: 100%;
     padding: 10px;
 }
+
+th:nth-child(3){
+    text-align: center;
+}
+
+td{
+    padding: 0 8px;
+}
+td:nth-child(3){
+    text-align: center;
+    padding: 3px 0 0 0;
+}
+td{
+    border-top: thin dashed #9482ff;
+}

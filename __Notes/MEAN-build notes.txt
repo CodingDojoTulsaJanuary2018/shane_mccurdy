@@ -74,6 +74,11 @@ var server = app.listen(8000, function() {
 });
 var io = require('socket.io').listen(server);
 
+//Zoidberg option, why not?
+app.listen(8000, function() {
+    console.log("\033[0;37mListening on port 8000, why not! - \033[1;31m (V)(°,,,°)(V)\033[0;37m");
+})
+
 //----------- if using Mongo via Mongoose
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());

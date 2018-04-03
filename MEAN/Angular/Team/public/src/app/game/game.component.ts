@@ -10,6 +10,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router'; //<-- Router s
 export class GameComponent implements OnInit {
   all_players : any;
   the_game : any;
+  game_name : String;
 
   constructor(
     private _httpService: HttpService,
@@ -24,7 +25,18 @@ export class GameComponent implements OnInit {
     }); 
   }
 
+  setGameName(g_id){
+    switch(g_id){
+      case "default":
+        this.game_name = "GAME 1";
+        break;
+      default:
+        this.game_name = "GAME " + g_id.toString();
+    }
+  }
+
   populateTheGame(g_id="default"){
+    this.setGameName(g_id);
     let ob = this._httpService.getOneGame(g_id);
     ob.subscribe(data=>{
       console.log("DATA : ", data);

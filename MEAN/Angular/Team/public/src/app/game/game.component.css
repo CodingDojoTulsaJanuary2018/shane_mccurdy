@@ -11,12 +11,19 @@
     color: white;  
 }
 th{
-    text-align: left;
+    text-align: center;
     padding: 8px;
     text-indent: 8px;
 }
 td{
     padding: 0 8px;
+}
+td:nth-child(even){
+    text-align: center;
+    padding: 3px 0 0 0;
+}
+td{
+    border-top: thin dashed #9482ff;
 }
 table{
     background-color: #fff;

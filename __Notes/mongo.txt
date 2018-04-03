@@ -1,3 +1,27 @@
+//+++++++++++++++++++++ Mongo +++++++++++++++++++++
+      *in a new terminal 
+      //if already installed
+      > cd data/db
+      > sudo mongod
+      
+      
+      //if new mongo install
+      > cd /   //to root level
+      > sudo mkdir data
+      > cd data
+      > sudo mkdir db
+      * to start
+      > sudo mongod
+      * to stop
+      > CTRL + C
+
+      ** If mongo terminal gets closed while running, 
+      ** it will run in the background. To stop...
+      ** ...open a new terminal
+      > ps -ax | grep mongo
+      > sudo kill *mongo_process_id_number*
+//+++++++++++++++++++++++++++++++++++++++++++++++++
+
 db.students.insert({"name": "Mia Leblanc","home_state": "AL","lucky_number": 11,"birthday": { month: 10, day: 08, year: 1980 }})
 
 db.students.insert({"name": "Unity R. Benton","home_state": "MI","lucky_number": 9,"birthday": { month: 11, day: 12, year: 1993 }})
